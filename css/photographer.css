@@ -2,12 +2,30 @@
     display: none;
 }
 
-.photograph-header {
+#photograph-header {
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    display: inline-flex;
+    /* justify-content: center; */
 }
 
+.photograph-meta{
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.thumb-img{
+    width: 200px;
+    height: 200px;
+}
 .contact_button {
     font-size: 20px;
     font-weight: bold;
