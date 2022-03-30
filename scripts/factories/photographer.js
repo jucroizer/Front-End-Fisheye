@@ -1,12 +1,14 @@
+
+
 function photographerFactory(data) {
     console.log(data);
     const { name, id, city, country,  tagline, price, portrait, photographerId, 
-        title, image, likes, date } = data;
+        title, image, likes, video } = data;
 
     const picture = `assets/photographers/Photographers ID Photos/${portrait}`;
-    const media = `assets/photographers/${photographerId}/${image}`;
-    console.log(media);
-    
+    // const mediaImg = `assets/photographers/${photographerId}/${image}`;
+    // const mediaVid = `assets/photographers/${photographerId}/${video}`;
+    // console.log(media)
     
 
     function getUserCardDOM() {
@@ -54,8 +56,7 @@ function photographerFactory(data) {
 
     function getPhotographerMeta() {
 
-        const mainDiv = document.createElement('div');
-        mainDiv.setAttribute('class', 'photograph-meta');
+        const header = document.getElementById('photograph-header');
 
         const divProfile = document.createElement('div');
         divProfile.setAttribute("class", 'photographer-profile');
@@ -67,43 +68,89 @@ function photographerFactory(data) {
         img.setAttribute("src", picture);
         img.setAttribute("class", "user-img");
 
-        const h2 = document.createElement('h2');
-        h2.textContent = name;
+        const h1 = document.createElement('h1');
+        h1.textContent = name;
 
         const pLocation = document.createElement('p');
         pLocation.textContent = city + ', ' + country;
+        pLocation.setAttribute('class', 'photographer-location');
 
         const pTagline = document.createElement('p');
         pTagline.textContent = tagline;
+        pTagline.setAttribute('class', 'photographer-tagline');
 
-        mainDiv.appendChild(divProfile);
-        mainDiv.appendChild(divPortrait);
+        
+        header.appendChild(divProfile);
+        header.appendChild(divPortrait);
         
         divPortrait.appendChild(img);
-        divProfile.appendChild(h2);
+        divProfile.appendChild(h1);
         divProfile.appendChild(pLocation);
         divProfile.appendChild(pTagline);
-        // mainDiv.innerHTML = div;
-        return(mainDiv);
+        return(header);
     }
 
     function getPhotographerMedia() {
 
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
-        // .innerHTML = data.map((image) => 
-        //     <img class="photographer-image" src="assets/photographers/${}"></img>
-        // );
-        
 
-        
-        const img = document.createElement('img');
-        img.setAttribute("src", media);
-        img.setAttribute("class", 'thumb-img');
+        // console.log(mediaImg);
+        // console.log(mediaVid);
+        let media = document.createElement('img');
+        if(data.image != undefined){
+            media = document.createElement('img');
+            media.setAttribute("src", `assets/photographers/${photographerId}/${data.image}`);
+            media.setAttribute("class", 'thumb-img');
+        }else{
+            media = document.createElement('video');
+            media.setAttribute("src", `assets/photographers/${photographerId}/${data.video}`);
+            media.setAttribute("type", "video/mp4");
+            media.setAttribute("class", 'thumb-vid');
+        }
        
-        photoDiv.appendChild(img);
+
+        const mediaHeader = document.createElement('div');
+        mediaHeader.setAttribute('class', 'media-header');
+
+        const pTitle = document.createElement('p');
+        pTitle.textContent = title;
+        pTitle.setAttribute('class', 'img-title');
+
+        const pLikes = document.createElement('p');
+        pLikes.textContent = likes;
+        pLikes.setAttribute('class', 'numb-likes');
+
+        const btnLike = document.createElement('button');
+
+        const heartLike = document.createElement('i');
+        heartLike.setAttribute('class', 'fas fa-heart');
+
+        photoDiv.appendChild(mediaHeader);
+        photoDiv.appendChild(media);
+        mediaHeader.appendChild(pTitle);
+        mediaHeader.appendChild(pLikes);
+        mediaHeader.appendChild(btnLike);
+        btnLike.appendChild(heartLike);
         return(photoDiv);
     }
+
+    // function afficherLikes(){
+    //     const globalMedia = document.createElement('div');
+    //     globalMedia.setAttribute('class', 'totaux');
+
+    //     const totalLikes = document.createElement('p');
+    //     totalLikes.setAttribute('class', 'totalLikes');
+    //     totalLikes.textContent = total.totLikes;
+
+    //     const photoPrice = document.createElement('p');
+    //     photoPrice.textContent = data.price + '€ / jour';
+    //     console.log(data.price);
+
+    //     globalMedia.appendChild(totalLikes);
+    //     globalMedia.appendChild(photoPrice);
+    //     return(globalMedia);
+    // }
 
     return { name, picture, getUserCardDOM, getPhotographerMeta, getPhotographerMedia }
 }

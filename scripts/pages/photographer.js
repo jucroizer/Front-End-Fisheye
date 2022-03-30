@@ -15,7 +15,9 @@ const getPhotographer = async() => {
     .catch(function(error){ console.log('une erreur fetch' + error)})
 }
 
-async function displayData(photographers, media) {
+let price = 0;
+
+async function displayData(photographers) {
     // console.log(photographers);
     // console.log(media);
 
@@ -30,13 +32,19 @@ async function displayData(photographers, media) {
             //recupere les elements de la factory
             const photographerModel = photographerFactory(photographer);
 
+            price = photographer.price;
+            console.log(price);
+
             // recupere les elements a inserer dans le HTML
             const getPhotographerMeta = photographerModel.getPhotographerMeta();
 
             // insere les elements a inserer de la factory dans l'element parent
-            photographersSection.appendChild(getPhotographerMeta);
+            // photographersSection.appendChild(getPhotographerMeta);
         }
     });
+
+    
+    let totLikes = 0;
 
     photographers.forEach((media) => {
         // console.log(media.photographerId);
@@ -45,16 +53,40 @@ async function displayData(photographers, media) {
         if(media.photographerId == params){
             // console.log(media);
             const photographerModel = photographerFactory(media);
-            // console.log(photographerModel);
+            console.log(photographerModel);
 
             // recupere les elements a inserer dans le HTML
             const getPhotographerMedia = photographerModel.getPhotographerMedia();
-
+            
+            totLikes += media.likes;
+            
             // insere les elements a inserer de la factory dans l'element parent
             photographersMedia.appendChild(getPhotographerMedia);
         }
     });
+
+    console.log(totLikes);
     
+    async function afficherLikes(){
+        const globalMedia = document.createElement('div');
+        globalMedia.setAttribute('class', 'totaux');
+
+        const totalLikes = document.createElement('p');
+        totalLikes.setAttribute('class', 'totalLikes');
+        totalLikes.textContent = totLikes;
+        console.log(totLikes);
+
+        const photoPrice = document.createElement('p');
+        photoPrice.textContent = price + '€ / jour';
+        console.log(photoPrice);
+
+        globalMedia.appendChild(totalLikes);
+        globalMedia.appendChild(photoPrice);
+        console.log(globalMedia);
+        document.getElementById('main').appendChild(globalMedia);
+    }
+    
+    afficherLikes();
 };
 
 async function init() {
