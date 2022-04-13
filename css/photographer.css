@@ -46,7 +46,7 @@
     margin-bottom: 57px;
 }
 
-.photographer_image{
+#photographer_image{
     display: inline-flex;
     flex-wrap: wrap;
     width: 100%;
@@ -59,7 +59,7 @@
     flex-direction: column-reverse;
 }
 
-.thumb-img{
+.thumb-img, .thumb-vid{
     width: 350px;
     height: 300px;
     border-radius: 5px;

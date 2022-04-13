@@ -1,7 +1,7 @@
 
 
 function photographerFactory(data) {
-    console.log(data);
+    // console.log(data);
     const { name, id, city, country,  tagline, price, portrait, photographerId, 
         title, image, likes, video } = data;
 
@@ -122,6 +122,7 @@ function photographerFactory(data) {
         pLikes.setAttribute('class', 'numb-likes');
 
         const btnLike = document.createElement('button');
+        btnLike.setAttribute('id', 'btn-like');
 
         const heartLike = document.createElement('i');
         heartLike.setAttribute('class', 'fas fa-heart');
@@ -134,23 +135,6 @@ function photographerFactory(data) {
         btnLike.appendChild(heartLike);
         return(photoDiv);
     }
-
-    // function afficherLikes(){
-    //     const globalMedia = document.createElement('div');
-    //     globalMedia.setAttribute('class', 'totaux');
-
-    //     const totalLikes = document.createElement('p');
-    //     totalLikes.setAttribute('class', 'totalLikes');
-    //     totalLikes.textContent = total.totLikes;
-
-    //     const photoPrice = document.createElement('p');
-    //     photoPrice.textContent = data.price + '€ / jour';
-    //     console.log(data.price);
-
-    //     globalMedia.appendChild(totalLikes);
-    //     globalMedia.appendChild(photoPrice);
-    //     return(globalMedia);
-    // }
 
     return { name, picture, getUserCardDOM, getPhotographerMeta, getPhotographerMedia }
 }
