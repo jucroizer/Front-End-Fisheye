@@ -225,16 +225,14 @@ function filterDate(){
 
 function refreshMedia(mediaSort) {
 
-    console.log('mon log ' + mediaSort);
+    // console.log('mon log ' + mediaSort);
     const removePhoto = document.getElementById('photographer_image');
     removePhoto.innerHTML = ' ';
 
     for(data in mediaSort){
 
-        console.log(data);
-        // if(data == ){
-
-        // }
+        // console.log(data);
+        
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
 
@@ -280,3 +278,5 @@ function refreshMedia(mediaSort) {
     }
     
 }
+
+

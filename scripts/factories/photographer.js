@@ -97,6 +97,17 @@ function photographerFactory(data) {
 
         // console.log(mediaImg);
         // console.log(mediaVid);
+        let link = document.createElement('a');
+        if(data.image != undefined){
+            link = document.createElement('a');
+            link.setAttribute("href", `assets/photographers/${photographerId}/${data.image}`);
+            link.setAttribute("class", 'link-img');
+        }else{
+            link = document.createElement('a');
+            link.setAttribute("href", `assets/photographers/${photographerId}/${data.video}`);
+            link.setAttribute("class", 'link-vid');
+        }
+
         let media = document.createElement('img');
         if(data.image != undefined){
             media = document.createElement('img');
@@ -108,7 +119,6 @@ function photographerFactory(data) {
             media.setAttribute("type", "video/mp4");
             media.setAttribute("class", 'thumb-vid');
         }
-       
 
         const mediaHeader = document.createElement('div');
         mediaHeader.setAttribute('class', 'media-header');
@@ -128,7 +138,8 @@ function photographerFactory(data) {
         heartLike.setAttribute('class', 'fas fa-heart');
 
         photoDiv.appendChild(mediaHeader);
-        photoDiv.appendChild(media);
+        photoDiv.appendChild(link);
+        link.appendChild(media);
         mediaHeader.appendChild(pTitle);
         mediaHeader.appendChild(pLikes);
         mediaHeader.appendChild(btnLike);
