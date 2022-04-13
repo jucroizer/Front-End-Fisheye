@@ -2,15 +2,15 @@
  *  Création de la LightBox 
  */
 
-let photographerImg = document.getElementById('photographer_image');
-console.log(photographerImg);
+// let photographerImg = document.getElementById('photographer_image');
+// console.log(photographerImg);
 
-let photographerMedia = photographerImg.childNodes;
-console.log(photographerMedia);
+// let photographerMedia = photographerImg.childNodes;
+// console.log(photographerMedia);
 
-for(let i = 0; i > photographerMedia.length; )
-let links = photographerMedia.innerHTML;
-console.log(links);
+// for(let i = 0; i > photographerMedia.length; )
+// let links = photographerMedia.innerHTML;
+// console.log(links);
 
 // function init(){
 
@@ -20,9 +20,7 @@ console.log(links);
 
 // }
 
-function lightboxAffiche(){
-    
-}
+
 
 // class LightBox {
 
@@ -75,6 +73,13 @@ function lightboxAffiche(){
 // LightBox.init();
 
 
+
+
+
+
+
+
+
  function lightBox(){
 
     const lightbox = document.createElement('div');
@@ -111,5 +116,3 @@ function lightboxAffiche(){
 }
 
 // lightBox();
-
-// init();
