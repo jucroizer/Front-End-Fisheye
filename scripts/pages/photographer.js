@@ -1,3 +1,5 @@
+// export let MEDIA = tabPop;
+
 //Mettre le code JavaScript lié à la page photographer.html
 
 let params = new URLSearchParams(window.location.search).get('id');
@@ -7,6 +9,8 @@ let tabPop = [];
 let tabTitle = [];
 let tabDate = [];
 let like = 0;
+let tabMedia = [];
+// console.log(tabMedia);
 
 const getPhotographer = async() => {
     return await fetch('http://127.0.0.1:5500/data/photographers.json')
@@ -67,6 +71,7 @@ async function displayData(photographers, test) {
             tabPop.push(media);
             tabTitle.push(media);
             tabDate.push(media);
+            tabMedia.push(media);
 
             
             // insere les elements a inserer de la factory dans l'element parent
@@ -105,7 +110,6 @@ async function displayData(photographers, test) {
     }
     
     afficherLikes();
-    
     
 };
 
@@ -278,5 +282,3 @@ function refreshMedia(mediaSort) {
     }
     
 }
-
-

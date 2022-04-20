@@ -164,7 +164,7 @@ form input {
     transition: opacity .3s;
 }
 
-.next-btn, .previous-btn{
+#next-btn, #previous-btn{
     fill: black;
     border: none;
     background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.360108 5.64L18.6801 24L0.360107 42.36L6.00011 48L30.0001 24L6.00011 3.88195e-06L0.360108 5.64Z"/></svg>');
@@ -178,7 +178,7 @@ form input {
     /* text-indent: -3000; */
 }
 
-.previous-btn{
+#previous-btn{
     right: auto;
     left: 0;
     transform: rotate(180deg);
@@ -201,8 +201,8 @@ form input {
 }
 
 .img-container{
-    max-width: 100%;
-    height: auto;
+    max-width: 80px;
+    height: 80px;
 }
 
 .img-container{
