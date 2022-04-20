@@ -2,91 +2,34 @@
  *  Création de la LightBox 
  */
 
-// let photographerImg = document.getElementById('photographer_image');
-// console.log(photographerImg);
+// Fonction de fermeture de la lighbox
+function close(e) {
+    e.preventDefault();
 
-// let photographerMedia = photographerImg.childNodes;
-// console.log(photographerMedia);
+    let liElements = document.querySelectorAll("#lightbox");
+    if (liElements.length > 0) {
+        liElements[0].remove();
+    }
+}
 
-// for(let i = 0; i > photographerMedia.length; )
-// let links = photographerMedia.innerHTML;
-// console.log(links);
+// Ouverture de la ligthbox
+document.addEventListener('click', function(e) {
+    e = e || window.event; 
+    var target = e.target; 
+    if(target.tagName == 'IMG'){ 
+        lightBox(target.src); 
+    } else if(target.tagName == 'VIDEO'){
+        lightBox(target.src);
+    }
+   }, false);
 
-// function init(){
-
-//     links.forEach(link => {
-//         link.addEventListener('click', lightboxAffiche);
-//     });
-
-// }
-
-
-
-// class LightBox {
-
-//     static init(){
-        
-//     }
-
-//     constructor(url){
-//         const element = this.buildLightBox(url);
-//         document.body.appendChild(element);
-//     }
-
-//     buildLightBox(url){
-        
-//         const lightbox = document.createElement('div');
-//         lightbox.setAttribute('class', 'lightbox');
-
-//         const close = document.createElement('button');
-//         close.setAttribute('class', 'close-btn');
-
-//         const next = document.createElement('button');
-//         next.setAttribute('class', 'next-btn');
-//         next.textContent = 'suivant';
-
-//         const previous = document.createElement('button');
-//         previous.setAttribute('class', 'previous-btn');
-//         previous.textContent = 'precedent';
-
-//         const imgBox = document.createElement('div');
-//         imgBox.setAttribute('class', 'img-container');
-
-//         const image = document.createElement('img');
-//         image.setAttribute('class', 'image-full-screen');
-//         image.setAttribute('src', '${url}');
-
-//         const title = document.createElement('p');
-//         title.setAttribute('class', 'img-title');
-//         title.textContent = "Je suis le titre";
-
-//         lightbox.appendChild(close);
-//         lightbox.appendChild(next);
-//         lightbox.appendChild(previous);
-//         lightbox.appendChild(imgBox);
-//         imgBox.appendChild(image);
-//         imgBox.appendChild(title);
-//         return lightbox;
-//     }
-// }
-
-// LightBox.init();
-
-
-
-
-
-
-
-
-
- function lightBox(){
+ function lightBox(src){
 
     const lightbox = document.createElement('div');
-    lightbox.setAttribute('class', 'lightbox');
+    lightbox.setAttribute('id', 'lightbox');
 
     const close = document.createElement('button');
-    close.setAttribute('class', 'close-btn');
+    close.setAttribute('id', 'close-btn');
 
     const next = document.createElement('button');
     next.setAttribute('class', 'next-btn');
@@ -101,7 +44,12 @@
 
     const image = document.createElement('img');
     image.setAttribute('class', 'image-full-screen');
+    image.setAttribute('src', src);
 
+    const video = document.createElement('video');
+    video.setAttribute('class', 'video-full-screen');
+    video.setAttribute('src', src);
+    
     const title = document.createElement('p');
     title.setAttribute('class', 'img-title');
     title.textContent = "Je suis le titre";
@@ -111,8 +59,11 @@
     lightbox.appendChild(previous);
     lightbox.appendChild(imgBox);
     imgBox.appendChild(image);
+    imgBox.appendChild(video);
     imgBox.appendChild(title);
     document.body.appendChild(lightbox);
+    
+    // EventListenner de fermeture de la modale
+    document.getElementById('close-btn').addEventListener('click', this.close.bind(this));
 }
 
-// lightBox();

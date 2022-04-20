@@ -149,7 +149,7 @@ form input {
     border-radius: 5px;
 }
 
-.lightbox{
+#lightbox{
     position: fixed;
     top: 0;
     left: 0;
@@ -158,6 +158,10 @@ form input {
     background-color: #FAFAFA;
     z-index: 10;
     overflow: auto;
+}
+#lightbox.fadeOut{
+    opacity: 0;
+    transition: opacity .3s;
 }
 
 .next-btn, .previous-btn{
@@ -180,7 +184,7 @@ form input {
     transform: rotate(180deg);
 }
 
-.close-btn{
+#close-btn{
     width: 42px;
     height: 42px;
     border: none;
