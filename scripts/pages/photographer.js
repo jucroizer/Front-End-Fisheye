@@ -13,7 +13,7 @@ let tabMedia = [];
 // console.log(tabMedia);
 
 const getPhotographer = async() => {
-    return await fetch('http://127.0.0.1:5500/data/photographers.json')
+    return await fetch('http://127.0.0.1:5501/data/photographers.json')
 
     // récupération du fichier json
     .then(function(result) { return result.json() })
@@ -282,3 +282,7 @@ function refreshMedia(mediaSort) {
     }
     
 }
+
+
+
+

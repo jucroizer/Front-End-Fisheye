@@ -95,29 +95,16 @@ function photographerFactory(data) {
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
 
-        // console.log(mediaImg);
-        // console.log(mediaVid);
-        // let link = document.createElement('a');
-        // if(data.image != undefined){
-        //     link = document.createElement('a');
-        //     link.setAttribute("href", `assets/photographers/${photographerId}/${data.image}`);
-        //     link.setAttribute("class", 'link-img');
-        // }else{
-        //     link = document.createElement('a');
-        //     link.setAttribute("href", `assets/photographers/${photographerId}/${data.video}`);
-        //     link.setAttribute("class", 'link-vid');
-        // }
-
         let media = document.createElement('img');
         if(data.image != undefined){
             media = document.createElement('img');
             media.setAttribute("src", `assets/photographers/${photographerId}/${data.image}`);
-            media.setAttribute("class", 'thumb-img');
+            media.setAttribute("class", 'media thumb-img');
         }else{
             media = document.createElement('video');
             media.setAttribute("src", `assets/photographers/${photographerId}/${data.video}`);
             media.setAttribute("type", "video/mp4");
-            media.setAttribute("class", 'thumb-vid');
+            media.setAttribute("class", 'media thumb-vid');
         }
 
         const mediaHeader = document.createElement('div');
@@ -138,7 +125,6 @@ function photographerFactory(data) {
         heartLike.setAttribute('class', 'fas fa-heart');
 
         photoDiv.appendChild(mediaHeader);
-        // photoDiv.appendChild(link);
         photoDiv.appendChild(media);
         mediaHeader.appendChild(pTitle);
         mediaHeader.appendChild(pLikes);

@@ -159,10 +159,7 @@ form input {
     z-index: 10;
     overflow: auto;
 }
-#lightbox.fadeOut{
-    opacity: 0;
-    transition: opacity .3s;
-}
+
 
 #next-btn, #previous-btn{
     fill: black;
@@ -201,15 +198,16 @@ form input {
 }
 
 .img-container{
-    max-width: 80px;
-    height: 80px;
-}
-
-.img-container{
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 50px;
     margin-right: 50px;
     min-height: 100vh;
+}
+
+.media-full-screen{
+    width: 80%;
+    height: fit-content;
+    background-repeat: no-repeat;
 }
