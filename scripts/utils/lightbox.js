@@ -89,9 +89,11 @@
     // document.getElementById('previous-btn').addEventListener('click', this.prev.bind(this));
     const nextBtn = document.getElementById('next-btn');
     nextBtn.addEventListener('click', nextImg);
+    document.addEventListener('keyup', navRight);
  
     const prevBtn = document.getElementById('previous-btn');
     prevBtn.addEventListener('click', prevImg);
+    document.addEventListener('keyup', navLeft);
  }
  
  // Fonction de fermeture de la lighbox
@@ -135,6 +137,12 @@
      }
  }
  
+ function navLeft(e){
+    if(e.key == 'ArrowLeft'){
+        prevImg();
+    }
+ }
+
  function prevImg(){
      // Mon tableau de media
      let medias = document.querySelectorAll('.media');
@@ -156,4 +164,10 @@
              break;
          }
      }
+ }
+
+ function navRight(e){
+    if(e.key == 'ArrowRight'){
+        nextImg();
+    }
  }
