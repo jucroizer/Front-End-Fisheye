@@ -40,7 +40,7 @@ function contactForm(){
     const divMessage = document.createElement('div');
     const message= document.createElement('label');
     message.textContent = 'Votre Message';
-    const messageInput = document.createElement('input');
+    const messageInput = document.createElement('textarea');
     messageInput.getAttribute('id', 'message-input');
 
     // headerH2.appendChild(namePhotographer);
