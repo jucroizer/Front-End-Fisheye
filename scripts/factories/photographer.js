@@ -70,6 +70,7 @@ function photographerFactory(data) {
 
         const h1 = document.createElement('h1');
         h1.textContent = name;
+        h1.setAttribute("id", "photographer-name");
 
         const pLocation = document.createElement('p');
         pLocation.textContent = city + ', ' + country;

@@ -1,18 +1,22 @@
 /**
  * Création de la lightbox
  */ 
- setTimeout(mediaTab, 1000);
 
- let index = 0;
+
+ setTimeout(mediaTab, 1000);
+ 
   
  function mediaTab(){
-      const collection = document.getElementsByClassName("media");
-      let tab = [].concat(...collection);
+    
+    const collection = document.getElementsByClassName("media");
+    let tab = [].concat(...collection);
+
       
      for(let i = 0; i < tab.length; i++){
          tab[i].addEventListener('click', targetSrc);
      }
  }
+
  
  function targetSrc(e){
      console.log(e);
@@ -68,7 +72,7 @@
     
     const title = document.createElement('p');
     title.setAttribute('class', 'img-title');
-    title.textContent = "Je suis le titre";
+    title.textContent = src.title;
  
     lightbox.appendChild(close);
     lightbox.appendChild(next);
@@ -86,7 +90,7 @@
     document.getElementById('close-btn').addEventListener('click', this.close.bind(this));
     document.addEventListener('keyup', this.onKeyUp);
  
-    // document.getElementById('previous-btn').addEventListener('click', this.prev.bind(this));
+    // Appel aux fonctions de navigation
     const nextBtn = document.getElementById('next-btn');
     nextBtn.addEventListener('click', nextImg);
     document.addEventListener('keyup', navRight);
@@ -114,6 +118,7 @@
      }
  }
  
+ // Passage aux elements suivant
  function nextImg(){
      // Mon tableau de media
      let medias = document.querySelectorAll('.media');
@@ -129,20 +134,22 @@
              // console.log(typeof(mediasTab[i].currentSrc));
              container.remove();
              lightBox(mediasTab[i + 1].currentSrc);
-             // if(i == mediasTab[i].length - 1){
-             //     i = -1;
-             // }
+             if(i == mediasTab[i].length - 1){
+                 i = -1;
+                 lightBox(mediasTab[i + 1].currentSrc);
+             }
              break;
          }
      }
  }
  
- function navLeft(e){
-    if(e.key == 'ArrowLeft'){
-        prevImg();
+ function navRight(e){
+    if(e.key == 'ArrowRight'){
+        nextImg();
     }
  }
 
+ // Passage aux elements précédents
  function prevImg(){
      // Mon tableau de media
      let medias = document.querySelectorAll('.media');
@@ -165,9 +172,9 @@
          }
      }
  }
-
- function navRight(e){
-    if(e.key == 'ArrowRight'){
-        nextImg();
+ 
+ function navLeft(e){
+    if(e.key == 'ArrowLeft'){
+        prevImg();
     }
  }
