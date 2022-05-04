@@ -12,6 +12,8 @@ html, body{
     background-color: rgba(196, 196, 196, 0.4);
 }
 
+/* Header du photographe */
+
 #photograph-header {
     background-color: #FAFAFA;
     height: 300px;
@@ -56,6 +58,97 @@ html, body{
     margin-bottom: 57px;
 }
 
+/* Filter navbar */
+
+#filter-bar{
+    display: flex;
+    margin-left: 97px;
+    margin-top: 9px;
+}
+
+.filter-title{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.select-box{
+    display: flex;
+    width: 170px;
+    flex-direction: column;
+}
+
+.select-box .options-container {
+    background: #2f3640;
+    color: #f5f6fa;
+    max-height: 0;
+    width: 100%;
+    opacity: 1;
+    /* transition: all 0.4s; */
+    border-radius: 8px;
+    overflow: hidden;
+  
+    order: 1;
+  }
+
+.selected {
+    background: #2f3640;
+    border-radius: 8px;
+    margin-bottom: 0px;
+    color: #f5f6fa;
+    position: relative;
+    height: 69px;
+  
+    order: 0;
+}
+
+.selected::after {
+    content: "";
+    background: url("../assets/icons/filter-arrow.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+  
+    position: absolute;
+    height: 50%;
+    width: 32px;
+    right: 10px;
+    top: 5px;
+    /* height: 69px; */
+    transform: rotate(180deg);
+    /* transition: all 0.4s; */
+  }
+
+  .select-box .options-container.active {
+    max-height: 170px;
+    opacity: 1;
+    overflow-y: scroll;
+  }
+  
+  .select-box .options-container.active + .selected::after {
+    transform: rotateX(0deg);
+    top: -6px;
+  }
+  
+  .select-box .option,
+  .selected {
+    padding: 0;
+    cursor: pointer;
+  }
+
+  #pop{
+      width: 100%;
+  }
+
+  .button label{
+
+  }
+  
+  .select-box .option .button {
+    display: block;
+  }
+  
+
+/* Medias du photographe */
+
 #photographer_image{
     display: inline-flex;
     flex-wrap: wrap;
@@ -88,6 +181,22 @@ html, body{
 .numb-likes{
     font-weight: 500;
 }
+
+.btn-like{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #901C1C;
+    width: 17.5px;
+    height: 18.35px;
+}
+
+.fa-heart{
+    width: 17.5px;
+    height: 18.35px;
+}
+
+/* Formullaire de contact */
 
 .contact_button {
     font-size: 20px;

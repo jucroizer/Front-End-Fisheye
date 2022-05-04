@@ -6,11 +6,13 @@ let params = new URLSearchParams(window.location.search).get('id');
 
 let price = 0;
 let tabPop = [];
+let tabLikes = [];
 let tabTitle = [];
 let tabDate = [];
 let like = 0;
 let tabMedia = [];
-// console.log(tabMedia);
+console.log(tabMedia);
+let totLikes = 0;
 
 const getPhotographer = async() => {
     return await fetch('http://127.0.0.1:5501/data/photographers.json')
@@ -50,7 +52,7 @@ async function displayData(photographers, test) {
     });
 
     
-    let totLikes = 0;
+  
 
     photographers.forEach((media) => {
         // console.log(media.photographerId);
@@ -66,12 +68,13 @@ async function displayData(photographers, test) {
             const getPhotographerMedia = photographerModel.getPhotographerMedia();
             
             totLikes += media.likes;
-            like = media.likes;
+            
 
             tabPop.push(media);
             tabTitle.push(media);
             tabDate.push(media);
             tabMedia.push(media);
+            tabLikes.push(media.likes);
 
             
             // insere les elements a inserer de la factory dans l'element parent
@@ -86,14 +89,14 @@ async function displayData(photographers, test) {
         const globalMedia = document.createElement('div');
         globalMedia.setAttribute('class', 'totaux');
         
-        
+        const mediaRecap = document.createElement('div');
         
             if(!test){
                 const totalLikes = document.createElement('p');
                 totalLikes.setAttribute('class', 'totalLikes');
                 totalLikes.textContent = totLikes;
                 // console.log(totLikes);
-                globalMedia.appendChild(totalLikes);
+                mediaRecap.appendChild(totalLikes);
             }
 
         
@@ -101,15 +104,18 @@ async function displayData(photographers, test) {
                 const photoPrice = document.createElement('p');
                 photoPrice.textContent = price + '€ / jour';
                 // console.log(photoPrice);
-                globalMedia.appendChild(photoPrice);
+                mediaRecap.appendChild(photoPrice);
             }
             
+            globalMedia.appendChild(mediaRecap)
             // console.log(globalMedia);
             document.getElementById('main').appendChild(globalMedia);
 
     }
     
     afficherLikes();
+    countLikes();
+    console.log(like);
     
 };
 
@@ -124,22 +130,27 @@ async function init() {
 
 init();
 
+console.log(tabLikes);
 
 /**
 *  Compteur de likes
 */
 
-// let nbClick = like;
-// let clicLike = document.getElementById("btn-like");
-// clicLike.addEventListener("click", nbLike);
+let nbClick = like;
+let clickLike = document.getElementsByClassName("btn-like");
+console.log(clickLike);
 
+// clickLike.addEventListener("click", nbLike);
 
-// function nbLike() {
-//     nbClick++;
-//     document.getElementsByClassName("numb-likes").textContent = nbClick;
+// function nbLike(){
+
 // }
 
-
+function countLikes(){
+    for(let i = 0; i < tabLikes.length; i++){
+        like += tabLikes[i];
+    }
+}
 
 
 /**
@@ -148,35 +159,106 @@ init();
 function filterNav(){
 
     const filterBar = document.createElement('div');
+    filterBar.setAttribute('id', 'filter-bar');
 
     const filterP = document.createElement('p');
     filterP.textContent = 'Trier par';
-
-    const navFilter = document.createElement('div');
-
-    const btnFilterPop = document.createElement('a');
-    btnFilterPop.setAttribute('id', 'pop');
-    btnFilterPop.textContent = 'Popularité';
-
-    const btnFilterTit = document.createElement('a');
-    btnFilterTit.setAttribute('id', 'title');
-    btnFilterTit.textContent = 'Titre';
-
-    const btnFilterDate = document.createElement('a');
-    btnFilterDate.setAttribute('id', 'date');
-    btnFilterDate.textContent = 'Date';
-
+    filterP.setAttribute('class', 'filter-title');
 
     filterBar.appendChild(filterP);
+
+    const navFilter = document.createElement('div');
+    navFilter.setAttribute('class', 'select-box');
+
     filterBar.appendChild(navFilter);
-    navFilter.appendChild(btnFilterPop);
-    navFilter.appendChild(btnFilterTit);
-    navFilter.appendChild(btnFilterDate);
+
+    const container = document.createElement('div');
+    container.setAttribute('class', 'options-container');
+
+    navFilter.appendChild(container);
+
+    const optionPop = document.createElement('div');
+    optionPop.setAttribute('class', 'option');
+
+    container.appendChild(optionPop);
+
+    const btnFilterPop = document.createElement('input');
+    btnFilterPop.setAttribute('id', 'pop');
+    btnFilterPop.setAttribute('class', 'filter-li pop-filtre');
+    btnFilterPop.setAttribute('type', 'button');
+    btnFilterPop.setAttribute('name', 'popularite');
+    // btnFilterPop.setAttribute('value', 'Popularité');
+
+    const labelPop = document.createElement('label');
+    labelPop.setAttribute('for', 'popularite');
+    labelPop.innerHTML = 'Popularité';
+
+    optionPop.appendChild(btnFilterPop);
+    optionPop.appendChild(labelPop);
+
+    const spanLine1 = document.createElement('span');
+    btnFilterPop.appendChild(spanLine1);
+
+    // const btnFilterTit = document.createElement('option');
+    // btnFilterTit.setAttribute('id', 'title');
+    // btnFilterTit.setAttribute('class', 'filter-li tit-filtres');
+    // btnFilterTit.textContent = 'Titre';
+
+    const optionDate = document.createElement('div');
+    optionDate.setAttribute('class', 'option');
+
+    container.appendChild(optionDate);
+
+    const btnFilterDate = document.createElement('input');
+    btnFilterDate.setAttribute('id', 'date');
+    btnFilterDate.setAttribute('class', 'filter-li date-filtre');
+    btnFilterDate.setAttribute('type', 'button');
+    btnFilterDate.setAttribute('name', 'date');
+    btnFilterDate.setAttribute('value', 'Date');
+
+    optionDate.appendChild(btnFilterDate);
+
+    const spanLine2 = document.createElement('span');
+    btnFilterDate.appendChild(spanLine2);
+
+    // const btnFilterDate = document.createElement('option');
+    // btnFilterDate.setAttribute('id', 'date');
+    // btnFilterDate.setAttribute('class', 'filter-li');
+    // btnFilterDate.textContent = 'Date';
+    const optionTitle = document.createElement('div');
+    optionTitle.setAttribute('class', 'option');
+
+    container.appendChild(optionTitle);
+
+    const btnFilterTit = document.createElement('input');
+    btnFilterTit.setAttribute('id', 'title');
+    btnFilterTit.setAttribute('class', 'filter-li');
+    btnFilterTit.setAttribute('type', 'button');
+    btnFilterTit.setAttribute('name', 'title');
+    btnFilterTit.setAttribute('value', 'Title');
+
+    optionTitle.appendChild(btnFilterTit);
+
+    const divArrow = document.createElement('div');
+    divArrow.setAttribute('class', 'selected');
+
+    navFilter.appendChild(divArrow);
+
     document.getElementById('main').appendChild(filterBar);
     
 }
 
 filterNav();
+
+/**
+ * Insertion du selecteur de filtre avant les images du photgraphe
+ */
+
+const images = document.getElementById('photographer_image');
+const filter = document.getElementById('filter-bar');
+let parentDiv = images.parentNode;
+
+parentDiv.insertBefore(filter, images);
 
 /**
  *  Tri des différents filtres
@@ -283,6 +365,25 @@ function refreshMedia(mediaSort) {
     
 }
 
+
+
+// ouverture du menu deroulant
+
+const selected = document.querySelector(".selected");
+const optionsContainer = document.querySelector(".options-container");
+
+const optionsList = document.querySelectorAll(".option");
+
+selected.addEventListener("click", () => {
+  optionsContainer.classList.toggle("active");
+});
+
+optionsList.forEach(o => {
+  o.addEventListener("click", () => {
+    selected.innerHTML = o.querySelector("label").innerHTML;
+    optionsContainer.classList.remove("active");
+  });
+});
 
 
 

@@ -120,7 +120,7 @@ function photographerFactory(data) {
         pLikes.setAttribute('class', 'numb-likes');
 
         const btnLike = document.createElement('button');
-        btnLike.setAttribute('id', 'btn-like');
+        btnLike.setAttribute('class', 'btn-like');
 
         const heartLike = document.createElement('i');
         heartLike.setAttribute('class', 'fas fa-heart');
