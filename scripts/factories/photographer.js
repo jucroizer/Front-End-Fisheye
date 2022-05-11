@@ -16,12 +16,12 @@ function photographerFactory(data) {
         const article = document.createElement('article');
         article.setAttribute('id', id);
         
-       
         const a = document.createElement('a');
-        a.setAttribute('href', 'http://127.0.0.1:5501/photographer.html?id=' + id);
+        a.setAttribute('href', 'http://127.0.0.1:5500/photographer.html?id=' + id);
 
         const img = document.createElement('img');
         img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
         
         const h2 = document.createElement('h2');
         h2.textContent = name;
@@ -67,6 +67,7 @@ function photographerFactory(data) {
         const img = document.createElement('img');
         img.setAttribute("src", picture);
         img.setAttribute("class", "user-img");
+        img.setAttribute('aria-label', name);
 
         const h1 = document.createElement('h1');
         h1.textContent = name;
@@ -100,10 +101,12 @@ function photographerFactory(data) {
         if(data.image != undefined){
             media = document.createElement('img');
             media.setAttribute("src", `assets/photographers/${photographerId}/${data.image}`);
+            media.setAttribute("alt", `${data.title}`)
             media.setAttribute("class", 'media thumb-img');
         }else{
             media = document.createElement('video');
             media.setAttribute("src", `assets/photographers/${photographerId}/${data.video}`);
+            media.setAttribute("alt", `${data.title}`)
             media.setAttribute("type", "video/mp4");
             media.setAttribute("class", 'media thumb-vid');
         }
@@ -119,16 +122,17 @@ function photographerFactory(data) {
         pLikes.textContent = likes;
         pLikes.setAttribute('class', 'numb-likes');
 
-        const btnLike = document.createElement('button');
-        btnLike.setAttribute('class', 'btn-like');
+        const btnLike = document.createElement('div');
+        btnLike.setAttribute('class', 'div-like');
 
-        const heartLike = document.createElement('i');
-        heartLike.setAttribute('class', 'fas fa-heart');
+        const heartLike = document.createElement('button');
+        heartLike.setAttribute('class', 'btn-like');
+        heartLike.innerHTML = '<i class="fas fa-heart" aria-hidden="true"></i>';
 
         photoDiv.appendChild(mediaHeader);
         photoDiv.appendChild(media);
         mediaHeader.appendChild(pTitle);
-        mediaHeader.appendChild(pLikes);
+        btnLike.appendChild(pLikes);
         mediaHeader.appendChild(btnLike);
         btnLike.appendChild(heartLike);
         return(photoDiv);

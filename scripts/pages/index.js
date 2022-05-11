@@ -1,5 +1,5 @@
     const getPhotographers = async() => {
-        return await fetch('http://127.0.0.1:5501/data/photographers.json')
+        return await fetch('http://127.0.0.1:5504/data/photographers.json')
         .then(function(result) { return result.json() })
         .then(function(data){ return data })
         .catch(function(error){ console.log('une erreur fetch' + error)})

@@ -64,6 +64,8 @@ html, body{
     display: flex;
     margin-left: 97px;
     margin-top: 9px;
+    height: 180px;
+    z-index: 2;
 }
 
 .filter-title{
@@ -72,32 +74,35 @@ html, body{
 }
 
 .select-box{
-    display: flex;
+    margin-left: 1em;
+    background-color: #901C1C;
+    color: #FFFFFF;
     width: 170px;
-    flex-direction: column;
+    height: 69px;
+    border-radius: 5px;
+    z-index: 2;
 }
 
-.select-box .options-container {
-    background: #2f3640;
+.select-box .options-container{
+    background: #901C1C;
     color: #f5f6fa;
     max-height: 0;
     width: 100%;
     opacity: 1;
-    /* transition: all 0.4s; */
-    border-radius: 8px;
     overflow: hidden;
-  
     order: 1;
-  }
+}
 
 .selected {
-    background: #2f3640;
     border-radius: 8px;
     margin-bottom: 0px;
     color: #f5f6fa;
     position: relative;
     height: 69px;
-  
+    margin-left: 1em;
+    margin-top: 1.3em;
+    font-size: 18px;
+    
     order: 0;
 }
 
@@ -108,42 +113,90 @@ html, body{
     background-repeat: no-repeat;
   
     position: absolute;
-    height: 50%;
-    width: 32px;
+    height: 15px;
+    width: 16px;
     right: 10px;
-    top: 5px;
+    top: 7px;
     /* height: 69px; */
     transform: rotate(180deg);
     /* transition: all 0.4s; */
   }
 
   .select-box .options-container.active {
-    max-height: 170px;
+    max-height: 180px;
     opacity: 1;
-    overflow-y: scroll;
+    overflow-y: hidden;
+    border-radius: 5px;
   }
   
   .select-box .options-container.active + .selected::after {
     transform: rotateX(0deg);
-    top: -6px;
+    top: -170px;
+    display: block;
+    left: 64em;
+    /* left: -57em; */
   }
-  
-  .select-box .option,
+
+
+  .select-box option,
   .selected {
     padding: 0;
     cursor: pointer;
   }
 
-  #pop{
-      width: 100%;
+  .select-box .options-container.active + .selected{
+     left: -57em;
   }
 
-  .button label{
-
+  .option{
+      width: 100%;
+      height: 40px;
+      border: none;
+      background-color: #901C1C;
+      font-size: 18px;
+      margin-top: 1em;
+      margin-left: 1em;
+      cursor: pointer;
   }
   
-  .select-box .option .button {
+  .option input{
+      width: 100%;
+      height: 40px;
+      border: none;
+      background-color: #901C1C;
+      color: #FFFFFF;
+      margin-left: 0em;
+      font-size: 18px;
+      text-align: left;
+      margin-top: -0.4em;
+      cursor: pointer;
+      z-index: 2;
+  }
+
+  .options-container.active span{
+      width: 150px;
+      height: 1px;
+      background: #FFFFFF;
+  }
+
+  .options-container.active .line1{
+    position: absolute;
+    left: 12em;
+    top: 28.5em;
+  }
+
+  .options-container.active .line2{
+    position: absolute;
+    left: 12em;
+    top: 32.2em;
+  }
+  
+  .select-box option{
     display: block;
+  }
+
+  .select-box .option .button {
+    display: none;
   }
   
 
@@ -153,7 +206,7 @@ html, body{
     display: inline-flex;
     flex-wrap: wrap;
     width: 100%;
-    margin: 71px 52.5px;
+    margin: -69px 52.5px;
 }
 
 .photographer-media{
@@ -176,10 +229,25 @@ html, body{
     font-size: 24px;
     color: #901C1C;
     font-weight: 400;
+    align-items: baseline;
+}
+
+.img-title{
+    width: 65%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .numb-likes{
     font-weight: 500;
+    font-size: 1em;
+}
+
+.div-like{
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
 }
 
 .btn-like{
@@ -187,13 +255,11 @@ html, body{
     background: transparent;
     cursor: pointer;
     color: #901C1C;
-    width: 17.5px;
-    height: 18.35px;
+    align-items: baseline;
 }
 
 .fa-heart{
-    width: 17.5px;
-    height: 18.35px;
+    font-size: 1.5em;
 }
 
 /* Formullaire de contact */
@@ -212,6 +278,11 @@ html, body{
     position: absolute;
     left: 650px;
     top: 250px;
+}
+
+.contact_button:hover{
+    background-color: #DB8876;
+    color: #000000;
 }
 
 .send{
@@ -299,27 +370,25 @@ form textarea{
     height: 100%;
     background-color: #FAFAFA;
     z-index: 10;
-    overflow: auto;
+    overflow: hidden;
 }
 
 
 #next-btn, #previous-btn{
     fill: black;
     border: none;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.360108 5.64L18.6801 24L0.360107 42.36L6.00011 48L30.0001 24L6.00011 3.88195e-06L0.360108 5.64Z"/></svg>');
+    background: url('../assets/icons/arrow.svg') center center / 32px 32px no-repeat transparent;
     width: 50px;
     height: 100%;
     position: fixed;
     top: 0;
-    right: 0;
+    right: 11em;
     margin-top: -14px;
     z-index: 11;
-    /* text-indent: -3000; */
 }
 
 #previous-btn{
-    right: auto;
-    left: 0;
+    left: 10em;
     transform: rotate(180deg);
 }
 
@@ -327,10 +396,10 @@ form textarea{
     width: 42px;
     height: 42px;
     border: none;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M42 4.23L37.77 0L21 16.77L4.23 0L0 4.23L16.77 21L0 37.77L4.23 42L21 25.23L37.77 42L42 37.77L25.23 21L42 4.23Z" fill="black"/></svg>') center center / 42px 42px no-repeat transparent;
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    background: url('../assets/icons/close.svg') center center / 32px 32px no-repeat transparent;
+    position: absolute;
+    top: 3em;
+    right: 11em;
     z-index: 12;
 }
 
@@ -339,17 +408,41 @@ form textarea{
     cursor: pointer;
 }
 
-.img-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 50px;
-    margin-right: 50px;
-    min-height: 100vh;
+.lightbox-container{
+    width: 1253px;
+    height: 984px;
 }
 
-.media-full-screen{
-    width: 80%;
-    height: fit-content;
-    background-repeat: no-repeat;
+.img-container{
+    display: flex;
+    align-items: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    flex-direction: column;
+    width: 92%;
+    margin-top: 2em;
 }
+
+.image-full-screen{
+    max-width: 1050px;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-left: 9em;
+}
+
+.video-full-screen{
+    max-width: 1050px;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-left: 9em;
+}
+
+.lgtb-img-title{
+    font-size: 24px;
+    color: #901C1C;
+    margin-left: 6em;
+    margin-top: 0.5em;
+}
+

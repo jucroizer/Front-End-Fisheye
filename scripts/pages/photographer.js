@@ -15,7 +15,7 @@ console.log(tabMedia);
 let totLikes = 0;
 
 const getPhotographer = async() => {
-    return await fetch('http://127.0.0.1:5501/data/photographers.json')
+    return await fetch('http://127.0.0.1:5504/data/photographers.json')
 
     // récupération du fichier json
     .then(function(result) { return result.json() })
@@ -114,7 +114,6 @@ async function displayData(photographers, test) {
     }
     
     afficherLikes();
-    countLikes();
     console.log(like);
     
 };
@@ -130,27 +129,34 @@ async function init() {
 
 init();
 
-console.log(tabLikes);
 
 /**
 *  Compteur de likes
 */
 
-let nbClick = like;
-let clickLike = document.getElementsByClassName("btn-like");
-console.log(clickLike);
-
-// clickLike.addEventListener("click", nbLike);
-
-// function nbLike(){
-
+openInPhoto.addEventListener('click', function(e) {
+    e = e || window.event; 
+    var like = e.target; 
+    if(like.classList == '.div-like'){ 
+        console.log(like); }
+}, false);
+// window.onload = function () {
+//     let clickDiv = document.getElementById("click-div");
+//     console.log(clickDiv);
+//     clickDiv.onclick = incrementClick;
 // }
 
-function countLikes(){
-    for(let i = 0; i < tabLikes.length; i++){
-        like += tabLikes[i];
-    }
-}
+// const value = document.getElementById('counter-label').innerHTML;
+// var counterVal = document.getElementById('counter-label').innerHTML;
+// console.log(value);
+
+// incrementClick = function() {
+//     updateDisplay(++counterVal);
+// }
+
+// function updateDisplay(val) {
+//     document.getElementById("counter-label").innerHTML = val;
+// }
 
 
 /**
@@ -177,68 +183,82 @@ function filterNav(){
 
     navFilter.appendChild(container);
 
+     /**
+     * Bouton filtre Popularité
+     */
+
     const optionPop = document.createElement('div');
     optionPop.setAttribute('class', 'option');
 
     container.appendChild(optionPop);
 
     const btnFilterPop = document.createElement('input');
-    btnFilterPop.setAttribute('id', 'pop');
-    btnFilterPop.setAttribute('class', 'filter-li pop-filtre');
+    btnFilterPop.setAttribute('class', 'button');
     btnFilterPop.setAttribute('type', 'button');
-    btnFilterPop.setAttribute('name', 'popularite');
-    // btnFilterPop.setAttribute('value', 'Popularité');
+    btnFilterPop.setAttribute('id', 'pop');
+    btnFilterPop.setAttribute('value', 'Popularité');
 
     const labelPop = document.createElement('label');
-    labelPop.setAttribute('for', 'popularite');
+    labelPop.setAttribute('for', 'pop');
     labelPop.innerHTML = 'Popularité';
 
     optionPop.appendChild(btnFilterPop);
     optionPop.appendChild(labelPop);
 
     const spanLine1 = document.createElement('span');
-    btnFilterPop.appendChild(spanLine1);
+    spanLine1.setAttribute('class', 'line1');
+    container.appendChild(spanLine1);
 
-    // const btnFilterTit = document.createElement('option');
-    // btnFilterTit.setAttribute('id', 'title');
-    // btnFilterTit.setAttribute('class', 'filter-li tit-filtres');
-    // btnFilterTit.textContent = 'Titre';
-
+    /**
+     *  Bouton filtre Date
+     */
     const optionDate = document.createElement('div');
     optionDate.setAttribute('class', 'option');
 
     container.appendChild(optionDate);
 
     const btnFilterDate = document.createElement('input');
-    btnFilterDate.setAttribute('id', 'date');
-    btnFilterDate.setAttribute('class', 'filter-li date-filtre');
+    btnFilterDate.setAttribute('class', 'button');
     btnFilterDate.setAttribute('type', 'button');
-    btnFilterDate.setAttribute('name', 'date');
+    btnFilterDate.setAttribute('id', 'date');
     btnFilterDate.setAttribute('value', 'Date');
 
+    const labelDate = document.createElement('label');
+    labelDate.setAttribute('for', 'date');
+    labelDate.innerHTML = 'Date';
+
     optionDate.appendChild(btnFilterDate);
+    optionDate.appendChild(labelDate);
 
     const spanLine2 = document.createElement('span');
-    btnFilterDate.appendChild(spanLine2);
+    spanLine2.setAttribute('class', 'line2');
+    container.appendChild(spanLine2);
 
-    // const btnFilterDate = document.createElement('option');
-    // btnFilterDate.setAttribute('id', 'date');
-    // btnFilterDate.setAttribute('class', 'filter-li');
-    // btnFilterDate.textContent = 'Date';
+    /**
+     *  Bouton filtre Titre
+     */
     const optionTitle = document.createElement('div');
-    optionTitle.setAttribute('class', 'option');
+    optionTitle.setAttribute('class', 'option opt-title');
 
     container.appendChild(optionTitle);
 
     const btnFilterTit = document.createElement('input');
-    btnFilterTit.setAttribute('id', 'title');
-    btnFilterTit.setAttribute('class', 'filter-li');
+    // btnFilterTit.setAttribute('id', 'title');
+    btnFilterTit.setAttribute('class', 'button');
     btnFilterTit.setAttribute('type', 'button');
-    btnFilterTit.setAttribute('name', 'title');
-    btnFilterTit.setAttribute('value', 'Title');
+    btnFilterTit.setAttribute('id', 'title');
+    btnFilterTit.setAttribute('value', 'Titre');
+
+    const labelTitle = document.createElement('label');
+    labelTitle.setAttribute('for', 'title');
+    labelTitle.innerHTML = 'Titre';
 
     optionTitle.appendChild(btnFilterTit);
+    optionTitle.appendChild(labelTitle);
 
+    /**
+     *  Fléche ouverture du menu deroulant
+     */
     const divArrow = document.createElement('div');
     divArrow.setAttribute('class', 'selected');
 
@@ -348,7 +368,7 @@ function refreshMedia(mediaSort) {
         pLikes.textContent = mediaSort[data].likes;
         pLikes.setAttribute('class', 'numb-likes');
 
-        const btnLike = document.createElement('button');
+        const btnLike = document.createElement('radio');
         btnLike.setAttribute('id', 'btn-like');
 
         const heartLike = document.createElement('i');
@@ -370,6 +390,7 @@ function refreshMedia(mediaSort) {
 // ouverture du menu deroulant
 
 const selected = document.querySelector(".selected");
+selected.innerHTML = "Popularité";
 const optionsContainer = document.querySelector(".options-container");
 
 const optionsList = document.querySelectorAll(".option");
