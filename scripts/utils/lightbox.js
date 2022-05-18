@@ -18,6 +18,9 @@ function onKeyUp(e){
     if(e.key == 'Escape'){
         this.close(e);
     }
+    if(e.key == 'ArrowLeft'){
+        this.next(e);
+    }
 }
 
 // Passage a l'iamge suivante avec Next
@@ -48,7 +51,7 @@ openInPhoto.addEventListener('click', function(e) {
     //################################################################################################################
     console.log(src);
     let mediaFormat = src.split('.');
-     console.log(mediaFormat.at(-1)); // on recupère le dernière element du tableau soit jpg soit mp4
+    console.log(mediaFormat.at(-1)); // on recupère le dernière element du tableau soit jpg soit mp4
     //################################################################################################################
     
     this.src = null;
@@ -122,9 +125,10 @@ openInPhoto.addEventListener('click', function(e) {
 let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 
 const nextMediaBtn = document.getElementById('next-btn');
+nextMediaBtn.addEventListener('keyup', onKeyUp);
 const prevMedia = document.getElementById('previous-btn');
 
-nextMediaBtn.addEventListener('click', function(e){
+nextMediaBtn.addEventListener('click', function next(e){
     e.preventDefault();
     let currentMedia = imgBox.firstChild.src;
     let nextMedia;
@@ -133,30 +137,32 @@ nextMediaBtn.addEventListener('click', function(e){
         if(media.src == currentMedia){
             nextMedia = medias[medias.indexOf(media) + 1];
             if(nextMedia){
-                // imgBox.replaceChild(nextMedia, imgBox.childNodes[0]);
-                // // imgBox.firstChild.removeAttribute("class");
-            
-                // // if(nextMedia.src.at(-1) == 'mp4'){ 
-                // //   imgBox.firstChild.setAttribute('class', 'video-full-screen');
-                // // } else{
-                // //  imgBox.firstChild.setAttribute('class', 'image-full-screen');
-                // //  imgBox.firstChild.setAttribute("alt", nextMedia.alt);
-                // // }
-
                 imgBox.firstChild.src = nextMedia.src;
-                med.setAttribute("alt", nextMedia.alt + ', closeup view')
+                console.log(imgBox.firstChild.src);
                 title.textContent =  nextMedia.alt;
 
-                // lightbox.remove();
-                // lightBox(nextMedia);
+                if(mediaFormat.at(-1) == 'img'){ 
+                    console.log('image');
+                    med = document.createElement('img');
+                    med.setAttribute('class', 'image-full-screen');
+                    med.setAttribute("alt", `${src.title}`)
+                    med.setAttribute('src', src);
+                } else{
+                    console.log('video')
+                    med = document.createElement('video');
+                    med.setAttribute('class', 'video-full-screen');
+                    med.setAttribute('type', 'video/mp4');
+                    med.setAttribute('src', src);
+                }
+
             } else{
                 imgBox.firstChild.src = medias[0].src;
-                med.setAttribute("alt", nextMedia.alt + ', closeup view')
                 title.textContent = nextMedia.alt;
             }
         }
     });
 });
+
 
 prevMedia.addEventListener('click', function(e){
     e.preventDefault();
@@ -166,24 +172,17 @@ prevMedia.addEventListener('click', function(e){
     medias.forEach(media => {
         if(media.src == currentMedia){
             prevMedia = medias[medias.indexOf(media) - 1];
-            if(prevMedia.src.at(-1) == 'mp4'){
-                imgBox.innerHTML = prevMedia.innerHTML;
-                imgBox.appendChild(prevMedia);
+            if(prevMedia){
+                imgBox.firstChild.src = prevMedia.src;
+                med.setAttribute("alt", prevMedia.alt + ', closeup view');
                 title.textContent = prevMedia.alt;
             } else{
-                imgBox.innerHTML = '';
-                imgBox.appendChild(prevMedia);
-                title.textContent = prevMedia.alt;
+                imgBox.firstChild.src = medias[medias.length - 1].src;
+                console.log(medias[medias.length - 1].src);
+                med.setAttribute("alt", prevMedia.alt + ', closeup view');
+                title.textContent = prevMedia[medias.length].alt;
+                console.log(prevMedia.alt);
             }
-            // if(prevMedia){
-            //     imgBox.firstChild.src = prevMedia.src;
-            //     med.setAttribute("alt", prevMedia.alt + ', closeup view')
-            //     title.textContent = prevMedia.alt;
-            // } else{
-            //     imgBox.firstChild.src = medias[medias.length - 1].src;
-            //     med.setAttribute("alt", prevMedia.alt + ', closeup view')
-            //     title.textContent = medias[medias.length - 1].alt;
-            // }
         }
     }
     );

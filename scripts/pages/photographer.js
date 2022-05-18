@@ -13,6 +13,7 @@ let like = 0;
 let tabMedia = [];
 console.log(tabMedia);
 let totLikes = 0;
+let newtab;
 
 const getPhotographer = async() => {
     return await fetch('http://127.0.0.1:5504/data/photographers.json')
@@ -25,7 +26,7 @@ const getPhotographer = async() => {
     .catch(function(error){ console.log('une erreur fetch' + error)})
 }
 
-async function displayData(photographers, test) {
+async function displayData(photographers) {
     // console.log(photographers);
     // console.log(media);
     console.log('je m appelle');
@@ -46,7 +47,6 @@ async function displayData(photographers, test) {
 
             // recupere les elements a inserer dans le HTML
             const getPhotographerMeta = photographerModel.getPhotographerMeta();
-
             // insere les elements a inserer de la factory dans l'element parent
             // photographersSection.appendChild(getPhotographerMeta);
         }
@@ -57,14 +57,16 @@ async function displayData(photographers, test) {
         // console.log(photographer.id);
 
         // let i = 0;
-        if(media.photographerId == params && test == false){
+        if(media.photographerId == params){
             // console.log(media);
             const photographerModel = photographerFactory(media);
             // console.log(photographerModel);
 
             // recupere les elements a inserer dans le HTML
             const getPhotographerMedia = photographerModel.getPhotographerMedia();
-            
+            // newtab = getPhotographerMedia;
+            // console.log(newtab);
+
             totLikes += media.likes;
 
             tabPop.push(media);
@@ -86,8 +88,8 @@ async function init() {
     // Récupère les datas des photographes et les medias
     const photographers  = await getPhotographer();
     // console.log(photographers);
-    displayData(photographers.photographers, true);
-    displayData(photographers.media, false);
+    displayData(photographers.photographers);
+    displayData(photographers.media);
 };
 
 init();
@@ -330,23 +332,20 @@ function filterDate(){
 
 function refreshMedia(mediaSort) {
 
-    // console.log('mon log ' + mediaSort);
+    console.log(mediaSort);
     const removePhoto = document.getElementById('photographer_image');
-    removePhoto.innerHTML = ' ';
+    removePhoto.innerHTML = '';
 
     for(data in mediaSort){
-
-        console.log(mediaSort);
-        
+        // console.log(mediaSort);
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
 
-        // console.log(mediaImg);
-        // console.log(mediaVid);
         let media = document.createElement('img');
         if(mediaSort[data].image != undefined){
             media = document.createElement('img');
             media.setAttribute("src", `assets/photographers/${mediaSort[data].photographerId}/${mediaSort[data].image}`);
+            media.setAttribute("alt", `${mediaSort[data].title}`);
             media.setAttribute("class", 'thumb-img');
         }else{
             media = document.createElement('video');
@@ -355,7 +354,6 @@ function refreshMedia(mediaSort) {
             media.setAttribute("class", 'thumb-vid');
         }
     
-
         const mediaHeader = document.createElement('div');
         mediaHeader.setAttribute('class', 'media-header');
 
@@ -367,21 +365,23 @@ function refreshMedia(mediaSort) {
         pLikes.textContent = mediaSort[data].likes;
         pLikes.setAttribute('class', 'numb-likes');
 
-        const btnLike = document.createElement('radio');
-        btnLike.setAttribute('id', 'btn-like');
+        const btnLike = document.createElement('div');
+        btnLike.setAttribute('class', 'div-like');
 
-        const heartLike = document.createElement('i');
-        heartLike.setAttribute('class', 'fas fa-heart');
+        const heartLike = document.createElement('button');
+        heartLike.setAttribute('class', 'btn-like');
+        heartLike.innerHTML = '<i class="fas fa-heart" aria-hidden="true"></i>';
 
         photoDiv.appendChild(mediaHeader);
         photoDiv.appendChild(media);
         mediaHeader.appendChild(pTitle);
-        mediaHeader.appendChild(pLikes);
+        btnLike.appendChild(pLikes);
         mediaHeader.appendChild(btnLike);
         btnLike.appendChild(heartLike);
         removePhoto.appendChild(photoDiv);
     }
     
+    setTimeout(countLike, 2000);
 }
 
 
