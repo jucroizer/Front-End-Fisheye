@@ -43,8 +43,7 @@ openInPhoto.addEventListener('click', function(e) {
 
  function lightBox(src){
 
-    let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
-    console.log(medias[1].alt);
+    let alts = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 
     //################################################################################################################
     console.log(src);
@@ -76,12 +75,10 @@ openInPhoto.addEventListener('click', function(e) {
     let med = null;
 
     if(mediaFormat.at(-1) == 'mp4'){ 
-        console.log('video');
       med = document.createElement('video');
       med.setAttribute('class', 'video-full-screen');
       med.setAttribute('src', src);
     } else{
-        console.log('image')
      med = document.createElement('img');
      med.setAttribute('class', 'image-full-screen');
      med.setAttribute("alt", `${src.alt}`)
@@ -92,14 +89,17 @@ openInPhoto.addEventListener('click', function(e) {
     const title = document.createElement('p');
     title.setAttribute('class', 'lgtb-img-title');
 
-    for(let i = 0; i < medias.length; i++){
-        if(src == medias[i].src){
-            med.setAttribute("alt", medias[i].alt + ', closeup view');
-            title.textContent = medias[i].alt;
+    for(let i = 0; i < alts.length; i++){
+        if(src == alts[i].src){
+            title.textContent = alts[i].alt;
+            
+            if(mediaFormat.at(-1) != 'mp4'){ 
+                med.setAttribute("alt", alts[i].alt + ', closeup view');
+            }
+            
         }
     }
     
-
     imgBox.appendChild(med);
     imgBox.appendChild(title);
     lightboxContainer.appendChild(imgBox);
@@ -119,6 +119,7 @@ openInPhoto.addEventListener('click', function(e) {
 
 //################################################################################################################################
 
+let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 
 const nextMediaBtn = document.getElementById('next-btn');
 const prevMedia = document.getElementById('previous-btn');
@@ -132,9 +133,22 @@ nextMediaBtn.addEventListener('click', function(e){
         if(media.src == currentMedia){
             nextMedia = medias[medias.indexOf(media) + 1];
             if(nextMedia){
+                // imgBox.replaceChild(nextMedia, imgBox.childNodes[0]);
+                // // imgBox.firstChild.removeAttribute("class");
+            
+                // // if(nextMedia.src.at(-1) == 'mp4'){ 
+                // //   imgBox.firstChild.setAttribute('class', 'video-full-screen');
+                // // } else{
+                // //  imgBox.firstChild.setAttribute('class', 'image-full-screen');
+                // //  imgBox.firstChild.setAttribute("alt", nextMedia.alt);
+                // // }
+
                 imgBox.firstChild.src = nextMedia.src;
                 med.setAttribute("alt", nextMedia.alt + ', closeup view')
                 title.textContent =  nextMedia.alt;
+
+                // lightbox.remove();
+                // lightBox(nextMedia);
             } else{
                 imgBox.firstChild.src = medias[0].src;
                 med.setAttribute("alt", nextMedia.alt + ', closeup view')
@@ -152,15 +166,24 @@ prevMedia.addEventListener('click', function(e){
     medias.forEach(media => {
         if(media.src == currentMedia){
             prevMedia = medias[medias.indexOf(media) - 1];
-            if(prevMedia){
-                imgBox.firstChild.src = prevMedia.src;
-                med.setAttribute("alt", prevMedia.alt + ', closeup view')
+            if(prevMedia.src.at(-1) == 'mp4'){
+                imgBox.innerHTML = prevMedia.innerHTML;
+                imgBox.appendChild(prevMedia);
                 title.textContent = prevMedia.alt;
             } else{
-                imgBox.firstChild.src = medias[medias.length - 1].src;
-                med.setAttribute("alt", prevMedia.alt + ', closeup view')
-                title.textContent = medias[medias.length - 1].alt;
+                imgBox.innerHTML = '';
+                imgBox.appendChild(prevMedia);
+                title.textContent = prevMedia.alt;
             }
+            // if(prevMedia){
+            //     imgBox.firstChild.src = prevMedia.src;
+            //     med.setAttribute("alt", prevMedia.alt + ', closeup view')
+            //     title.textContent = prevMedia.alt;
+            // } else{
+            //     imgBox.firstChild.src = medias[medias.length - 1].src;
+            //     med.setAttribute("alt", prevMedia.alt + ', closeup view')
+            //     title.textContent = medias[medias.length - 1].alt;
+            // }
         }
     }
     );

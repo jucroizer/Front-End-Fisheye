@@ -106,7 +106,6 @@ function photographerFactory(data) {
         }else{
             media = document.createElement('video');
             media.setAttribute("src", `assets/photographers/${photographerId}/${data.video}`);
-            media.setAttribute("alt", `${data.title}`)
             media.setAttribute("type", "video/mp4");
             media.setAttribute("class", 'media thumb-vid');
         }

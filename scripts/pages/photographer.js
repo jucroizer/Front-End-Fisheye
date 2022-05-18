@@ -28,7 +28,7 @@ const getPhotographer = async() => {
 async function displayData(photographers, test) {
     // console.log(photographers);
     // console.log(media);
-
+    console.log('je m appelle');
     // recupere l'element parent
     const photographersSection = document.querySelector("#photograph-header");
     const photographersMedia = document.querySelector("#photographer_image");
@@ -41,6 +41,7 @@ async function displayData(photographers, test) {
             const photographerModel = photographerFactory(photographer);
 
             price = photographer.price;
+
             // console.log(price);
 
             // recupere les elements a inserer dans le HTML
@@ -50,9 +51,6 @@ async function displayData(photographers, test) {
             // photographersSection.appendChild(getPhotographerMeta);
         }
     });
-
-    
-  
 
     photographers.forEach((media) => {
         // console.log(media.photographerId);
@@ -68,7 +66,6 @@ async function displayData(photographers, test) {
             const getPhotographerMedia = photographerModel.getPhotographerMedia();
             
             totLikes += media.likes;
-            
 
             tabPop.push(media);
             tabTitle.push(media);
@@ -83,39 +80,6 @@ async function displayData(photographers, test) {
 
     });
     
-    function afficherLikes(){
-
-        
-        const globalMedia = document.createElement('div');
-        globalMedia.setAttribute('class', 'totaux');
-        
-        const mediaRecap = document.createElement('div');
-        
-            if(!test){
-                const totalLikes = document.createElement('p');
-                totalLikes.setAttribute('class', 'totalLikes');
-                totalLikes.textContent = totLikes;
-                // console.log(totLikes);
-                mediaRecap.appendChild(totalLikes);
-            }
-
-        
-            if(test){
-                const photoPrice = document.createElement('p');
-                photoPrice.textContent = price + '€ / jour';
-                // console.log(photoPrice);
-                mediaRecap.appendChild(photoPrice);
-            }
-            
-            globalMedia.appendChild(mediaRecap)
-            // console.log(globalMedia);
-            document.getElementById('main').appendChild(globalMedia);
-
-    }
-    
-    afficherLikes();
-    console.log(like);
-    
 };
 
 async function init() {
@@ -126,38 +90,73 @@ async function init() {
     displayData(photographers.media, false);
 };
 
-
 init();
 
+/**
+ * Affichage des totaux
+ */
+
+setTimeout(afficherLikes, 1000);
+
+function afficherLikes(){
+
+    const globalMedia = document.createElement('div');
+    globalMedia.setAttribute('class', 'totaux');
+    
+    const likesRecap = document.createElement('div');
+    likesRecap.setAttribute('class', 'likes-recap');
+    
+    const totalLikes = document.createElement('p');
+    totalLikes.setAttribute('class', 'totalLikes');
+    totalLikes.textContent = totLikes;
+            // console.log(totLikes);
+
+    const heartTot = document.createElement('i');
+    heartTot.setAttribute('class', 'fas fa-heart heart-tot');
+    heartTot.setAttribute('aria-hidden', 'true');
+    likesRecap.appendChild(totalLikes);
+    likesRecap.appendChild(heartTot);
+        
+    
+    const priceRecap = document.createElement('div');
+    priceRecap.setAttribute('class', 'price-recap');
+
+    const photoPrice = document.createElement('p');
+    photoPrice.textContent = price + '€ / jour';
+       
+    priceRecap.appendChild(photoPrice);
+       
+    globalMedia.appendChild(likesRecap);
+    globalMedia.appendChild(priceRecap);
+       
+    document.getElementById('main').appendChild(globalMedia);
+
+}
 
 /**
 *  Compteur de likes
 */
 
-openInPhoto.addEventListener('click', function(e) {
-    e = e || window.event; 
-    var like = e.target; 
-    if(like.classList == '.div-like'){ 
-        console.log(like); }
-}, false);
-// window.onload = function () {
-//     let clickDiv = document.getElementById("click-div");
-//     console.log(clickDiv);
-//     clickDiv.onclick = incrementClick;
-// }
+setTimeout(countLike, 2000);
 
-// const value = document.getElementById('counter-label').innerHTML;
-// var counterVal = document.getElementById('counter-label').innerHTML;
-// console.log(value);
+function countLike(){
+    const btnLike = document.querySelectorAll(".btn-like");
+    
+    for (var i = 0 ; i < btnLike.length; i++) {
+        btnLike[i].addEventListener('click', function(e){
+            e = e || window.event; 
+            const target = e.target;
+            const parentTarget = target.parentNode.parentNode;
+            let likeCount = parentTarget.firstChild;
+            let value = parseInt(likeCount.innerHTML);
+            const totCountLike = document.querySelector('.totalLikes');
 
-// incrementClick = function() {
-//     updateDisplay(++counterVal);
-// }
-
-// function updateDisplay(val) {
-//     document.getElementById("counter-label").innerHTML = val;
-// }
-
+            value += 1;
+            likeCount.innerHTML = value;
+            totCountLike.innerHTML++;
+        }); 
+    }
+}
 
 /**
  *  Creation des filtres
@@ -337,7 +336,7 @@ function refreshMedia(mediaSort) {
 
     for(data in mediaSort){
 
-        // console.log(data);
+        console.log(mediaSort);
         
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
