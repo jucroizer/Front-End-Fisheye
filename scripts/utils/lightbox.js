@@ -78,14 +78,15 @@ openInPhoto.addEventListener('click', function(e) {
     let med = null;
 
     if(mediaFormat.at(-1) == 'mp4'){ 
-      med = document.createElement('video');
-      med.setAttribute('class', 'video-full-screen');
-      med.setAttribute('src', src);
+        med = document.createElement('video');
+        med.setAttribute('class', 'video-full-screen');
+        med.setAttribute('controls', 'controls');
+        med.setAttribute('src', src);
     } else{
-     med = document.createElement('img');
-     med.setAttribute('class', 'image-full-screen');
-     med.setAttribute("alt", `${src.alt}`)
-     med.setAttribute('src', src);
+        med = document.createElement('img');
+        med.setAttribute('class', 'image-full-screen');
+        med.setAttribute("alt", `${src.alt}`)
+        med.setAttribute('src', src);
     }
     // FIN VERIFICATION IMAGE OU VIDEO####################################################################################################
     
@@ -126,7 +127,7 @@ let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 
 const nextMediaBtn = document.getElementById('next-btn');
 nextMediaBtn.addEventListener('keyup', onKeyUp);
-const prevMedia = document.getElementById('previous-btn');
+const prevMediaBtn = document.getElementById('previous-btn');
 
 nextMediaBtn.addEventListener('click', function next(e){
     e.preventDefault();
@@ -136,26 +137,25 @@ nextMediaBtn.addEventListener('click', function next(e){
     medias.forEach(media => {   
         if(media.src == currentMedia){
             nextMedia = medias[medias.indexOf(media) + 1];
-            if(nextMedia){
-                imgBox.firstChild.src = nextMedia.src;
-                console.log(imgBox.firstChild.src);
-                title.textContent =  nextMedia.alt;
 
-                if(mediaFormat.at(-1) == 'img'){ 
-                    console.log('image');
-                    med = document.createElement('img');
-                    med.setAttribute('class', 'image-full-screen');
-                    med.setAttribute("alt", `${src.title}`)
-                    med.setAttribute('src', src);
-                } else{
-                    console.log('video')
+            if(nextMedia){
+                let formatNextMedia = nextMedia.src.split('.');
+                if(formatNextMedia.at(-1) == 'mp4'){ 
+                    console.log(nextMedia.src.at(-1));
                     med = document.createElement('video');
                     med.setAttribute('class', 'video-full-screen');
-                    med.setAttribute('type', 'video/mp4');
-                    med.setAttribute('src', src);
+                    med.setAttribute('controls', 'controls');
+                    med.setAttribute('src', nextMedia.src);
+                } else{
+                    med = document.createElement('img');
+                    med.setAttribute('class', 'image-full-screen');
+                    med.setAttribute("alt", nextMedia.alt);
+                    med.setAttribute('src', nextMedia.src);
                 }
 
-            } else{
+                imgBox.replaceChild(med, imgBox.firstChild);
+
+            }else{
                 imgBox.firstChild.src = medias[0].src;
                 title.textContent = nextMedia.alt;
             }
@@ -163,30 +163,63 @@ nextMediaBtn.addEventListener('click', function next(e){
     });
 });
 
-
-prevMedia.addEventListener('click', function(e){
+prevMediaBtn.addEventListener('click', function prev(e){
     e.preventDefault();
     let currentMedia = imgBox.firstChild.src;
     let prevMedia;
 
-    medias.forEach(media => {
+    medias.forEach(media => {   
         if(media.src == currentMedia){
             prevMedia = medias[medias.indexOf(media) - 1];
+
             if(prevMedia){
-                imgBox.firstChild.src = prevMedia.src;
-                med.setAttribute("alt", prevMedia.alt + ', closeup view');
+                let formatPrevMedia = prevMedia.src.split('.');
+                if(formatPrevMedia.at(-1) == 'mp4'){ 
+                    med = document.createElement('video');
+                    med.setAttribute('class', 'video-full-screen');
+                    med.setAttribute('controls', 'controls');
+                    med.setAttribute('src', prevMedia.src);
+                } else{
+                    med = document.createElement('img');
+                    med.setAttribute('class', 'image-full-screen');
+                    med.setAttribute("alt", prevMedia.alt)
+                    med.setAttribute('src', prevMedia.src);
+                }
+
+                imgBox.replaceChild(med, imgBox.firstChild);
+
+            }else{
+                imgBox.firstChild.src = medias[0].src;
                 title.textContent = prevMedia.alt;
-            } else{
-                imgBox.firstChild.src = medias[medias.length - 1].src;
-                console.log(medias[medias.length - 1].src);
-                med.setAttribute("alt", prevMedia.alt + ', closeup view');
-                title.textContent = prevMedia[medias.length].alt;
-                console.log(prevMedia.alt);
             }
         }
-    }
-    );
+    });
 });
+
+
+// prevMedia.addEventListener('click', function(e){
+//     e.preventDefault();
+//     let currentMedia = imgBox.firstChild.src;
+//     let prevMedia;
+
+//     medias.forEach(media => {
+//         if(media.src == currentMedia){
+//             prevMedia = medias[medias.indexOf(media) - 1];
+//             if(prevMedia){
+//                 imgBox.firstChild.src = prevMedia.src;
+//                 med.setAttribute("alt", prevMedia.alt + ' closeup view');
+//                 title.textContent = prevMedia.alt;
+//             } else{
+//                 imgBox.firstChild.src = medias[medias.length - 1].src;
+//                 console.log(medias[medias.length - 1].src);
+//                 med.setAttribute("alt", prevMedia.alt + ' closeup view');
+//                 title.textContent = prevMedia[medias.length].alt;
+//                 console.log(prevMedia.alt);
+//             }
+//         }
+//     }
+//     );
+// });
 
 //################################################################################################################################
 }

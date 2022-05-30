@@ -126,6 +126,7 @@ function photographerFactory(data) {
 
         const heartLike = document.createElement('button');
         heartLike.setAttribute('class', 'btn-like');
+        heartLike.setAttribute('aria-label', 'likes');
         heartLike.innerHTML = '<i class="fas fa-heart" aria-hidden="true"></i>';
 
         photoDiv.appendChild(mediaHeader);

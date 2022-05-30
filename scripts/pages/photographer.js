@@ -1,7 +1,3 @@
-// export let MEDIA = tabPop;
-
-//Mettre le code JavaScript lié à la page photographer.html
-
 let params = new URLSearchParams(window.location.search).get('id');
 
 let price = 0;
