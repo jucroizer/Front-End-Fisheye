@@ -196,30 +196,5 @@ prevMediaBtn.addEventListener('click', function prev(e){
     });
 });
 
-
-// prevMedia.addEventListener('click', function(e){
-//     e.preventDefault();
-//     let currentMedia = imgBox.firstChild.src;
-//     let prevMedia;
-
-//     medias.forEach(media => {
-//         if(media.src == currentMedia){
-//             prevMedia = medias[medias.indexOf(media) - 1];
-//             if(prevMedia){
-//                 imgBox.firstChild.src = prevMedia.src;
-//                 med.setAttribute("alt", prevMedia.alt + ' closeup view');
-//                 title.textContent = prevMedia.alt;
-//             } else{
-//                 imgBox.firstChild.src = medias[medias.length - 1].src;
-//                 console.log(medias[medias.length - 1].src);
-//                 med.setAttribute("alt", prevMedia.alt + ' closeup view');
-//                 title.textContent = prevMedia[medias.length].alt;
-//                 console.log(prevMedia.alt);
-//             }
-//         }
-//     }
-//     );
-// });
-
 //################################################################################################################################
 }
