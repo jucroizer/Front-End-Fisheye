@@ -12,8 +12,8 @@ let totLikes = 0;
 let newtab;
 
 const getPhotographer = async() => {
-    return await fetch('http://127.0.0.1:5504/data/photographers.json')
-
+//     return await fetch('http://127.0.0.1:5504/data/photographers.json')
+    return await fetch('https://jucroizer.github.io/JustineCroizer_6_23022022/data/photographers.json')
     // récupération du fichier json
     .then(function(result) { return result.json() })
     // récupération des données de photographers et media
