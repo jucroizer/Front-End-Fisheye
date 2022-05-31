@@ -2,7 +2,6 @@
  * Création de la lightbox
  */ 
 
-
  function close(e) {
     e.preventDefault();
 
@@ -17,9 +16,6 @@
 function onKeyUp(e){
     if(e.key == 'Escape'){
         this.close(e);
-    }
-    if(e.key == 'ArrowLeft'){
-        this.next(e);
     }
 }
 
@@ -126,17 +122,25 @@ openInPhoto.addEventListener('click', function(e) {
 let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 
 const nextMediaBtn = document.getElementById('next-btn');
-nextMediaBtn.addEventListener('keyup', onKeyUp);
 const prevMediaBtn = document.getElementById('previous-btn');
 
-nextMediaBtn.addEventListener('click', function next(e){
-    e.preventDefault();
+setTimeout(arrowNav, 1000);
+
+prevMediaBtn.addEventListener('click', prevMed);
+nextMediaBtn.addEventListener('click', nextMed);
+
+nextMediaBtn.addEventListener('keyup', arrowNav);
+prevMediaBtn.addEventListener('keyup', arrowNav);
+
+
+function nextMed(e){
     let currentMedia = imgBox.firstChild.src;
     let nextMedia;
 
     medias.forEach(media => {   
         if(media.src == currentMedia){
             nextMedia = medias[medias.indexOf(media) + 1];
+            console.log(nextMedia);
 
             if(nextMedia){
                 let formatNextMedia = nextMedia.src.split('.');
@@ -161,10 +165,9 @@ nextMediaBtn.addEventListener('click', function next(e){
             }
         }
     });
-});
+}
 
-prevMediaBtn.addEventListener('click', function prev(e){
-    e.preventDefault();
+function prevMed(e){
     let currentMedia = imgBox.firstChild.src;
     let prevMedia;
 
@@ -189,12 +192,27 @@ prevMediaBtn.addEventListener('click', function prev(e){
                 imgBox.replaceChild(med, imgBox.firstChild);
 
             }else{
-                imgBox.firstChild.src = medias[0].src;
+                imgBox.firstChild.src = medias[medias.length - 1].src;
                 title.textContent = prevMedia.alt;
             }
         }
     });
-});
+}
+
+function arrowNav(e){
+
+    // if(e === undefined){
+    //     nextMed(e);
+    // }
+
+    if(e.key === 'ArrowRight'){
+        nextMed(e);
+        console.log(e);
+    }
+    else if(e.key === 'ArrowLeft'){
+        prevMed(e);
+    }
+}
 
 //################################################################################################################################
 }
