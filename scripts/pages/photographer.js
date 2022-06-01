@@ -344,6 +344,7 @@ function refreshMedia(mediaSort) {
             media = document.createElement('video');
             media.setAttribute("src", `assets/photographers/${mediaSort[data].photographerId}/${mediaSort[data].video}`);
             media.setAttribute("type", "video/mp4");
+            media.setAttribute("title", `${mediaSort[data].title}`);
             media.setAttribute("class", 'thumb-vid');
         }
     

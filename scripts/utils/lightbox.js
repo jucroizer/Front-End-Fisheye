@@ -19,13 +19,6 @@ function onKeyUp(e){
     }
 }
 
-// Passage a l'iamge suivante avec Next
-// function keyNext(){
-//     if(e.key == 'arrow-left'){
-//         nextMedia();
-//     }
-// }
-
 const openInPhoto = document.getElementById('photographer_image');
 
 // Ouverture de la ligthbox
@@ -126,13 +119,8 @@ let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 const nextMediaBtn = document.getElementById('next-btn');
 const prevMediaBtn = document.getElementById('previous-btn');
 
-// setTimeout(arrowNav, 1000);
-
 prevMediaBtn.addEventListener('click', prevMed);
 nextMediaBtn.addEventListener('click', nextMed);
-
-
-// prevMediaBtn.addEventListener('keyup', arrowNav);
 
 
 function nextMed(e){
@@ -207,9 +195,11 @@ function prevMed(e){
 }
 
 document.addEventListener('keydown', function (event) {
+    
     if (event.defaultPrevented) {
       return; // Ne devrait rien faire si l'événement de la touche était déjà consommé.
     }
+
     switch (event.key) {
         case "ArrowLeft":
           // Faire quelque chose pour la touche "left arrow" pressée.
@@ -224,8 +214,7 @@ document.addEventListener('keydown', function (event) {
           return; // Quitter lorsque cela ne gère pas l'événement touche.
       }
       event.preventDefault();
-    }, true);
-
+}, true);
 
 //################################################################################################################################
 }
