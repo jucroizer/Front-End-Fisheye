@@ -465,15 +465,7 @@ form textarea{
     margin-top: 2em;
 }
 
-.image-full-screen{
-    max-width: 1050px;
-    max-height: 90vh;
-    object-fit: contain;
-    border-radius: 5px;
-    margin-left: 9em;
-}
-
-.video-full-screen{
+.image-full-screen, .video-full-screen{
     max-width: 1050px;
     max-height: 90vh;
     object-fit: contain;

@@ -43,6 +43,7 @@ openInPhoto.addEventListener('click', function(e) {
  function lightBox(src){
 
     let alts = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
+    console.log(alts);
 
     //################################################################################################################
     console.log(src);
@@ -77,6 +78,7 @@ openInPhoto.addEventListener('click', function(e) {
         med = document.createElement('video');
         med.setAttribute('class', 'video-full-screen');
         med.setAttribute('controls', 'controls');
+
         med.setAttribute('src', src);
     } else{
         med = document.createElement('img');
@@ -93,8 +95,8 @@ openInPhoto.addEventListener('click', function(e) {
         if(src == alts[i].src){
             title.textContent = alts[i].alt;
             
-            if(mediaFormat.at(-1) != 'mp4'){ 
-                med.setAttribute("alt", alts[i].alt + ', closeup view');
+            if(mediaFormat.at(-1) == 'mp4'){ 
+                title.textContent = alts[i].title;
             }
             
         }
@@ -140,9 +142,9 @@ function nextMed(e){
     medias.forEach(media => {   
         if(media.src == currentMedia){
             nextMedia = medias[medias.indexOf(media) + 1];
-            console.log(nextMedia);
 
             if(nextMedia){
+                console.log(nextMedia);
                 let formatNextMedia = nextMedia.src.split('.');
                 if(formatNextMedia.at(-1) == 'mp4'){ 
                     console.log(nextMedia.src.at(-1));
@@ -150,58 +152,59 @@ function nextMed(e){
                     med.setAttribute('class', 'video-full-screen');
                     med.setAttribute('controls', 'controls');
                     med.setAttribute('src', nextMedia.src);
+                    title.textContent = nextMedia.title;
                 } else{
+                    console.log(nextMedia.alt);
                     med = document.createElement('img');
                     med.setAttribute('class', 'image-full-screen');
-                    med.setAttribute("alt", nextMedia.alt);
+                    med.setAttribute('alt', nextMedia.alt);
                     med.setAttribute('src', nextMedia.src);
+                    title.textContent = nextMedia.alt;
                 }
 
                 imgBox.replaceChild(med, imgBox.firstChild);
 
             }else{
                 imgBox.firstChild.src = medias[0].src;
-                title.textContent = nextMedia.alt;
+                title.firstChild.textContent = medias[0].alt;
             }
         }
     });
 }
 
-nextMediaBtn.addEventListener('keyup', e => {
-    if(e.isComposing || e.key === 'ArrowRight'){
-        let currentMedia = imgBox.firstChild.src;
-        let nextMedia;
+// nextMediaBtn.addEventListener('keyup', e => {
+//     if(e.isComposing || e.key === 'ArrowRight'){
+//         let currentMedia = imgBox.firstChild.src;
+//         let nextMedia;
     
-        medias.forEach(media => {   
-            if(media.src == currentMedia){
-                nextMedia = medias[medias.indexOf(media) + 1];
-                console.log(nextMedia);
+//         medias.forEach(media => {   
+//             if(media.src == currentMedia){
+//                 nextMedia = medias[medias.indexOf(media) + 1];
     
-                if(nextMedia){
-                    let formatNextMedia = nextMedia.src.split('.');
-                    if(formatNextMedia.at(-1) == 'mp4'){ 
-                        console.log(nextMedia.src.at(-1));
-                        med = document.createElement('video');
-                        med.setAttribute('class', 'video-full-screen');
-                        med.setAttribute('controls', 'controls');
-                        med.setAttribute('src', nextMedia.src);
-                    } else{
-                        med = document.createElement('img');
-                        med.setAttribute('class', 'image-full-screen');
-                        med.setAttribute("alt", nextMedia.alt);
-                        med.setAttribute('src', nextMedia.src);
-                    }
+//                 if(nextMedia){
+//                     let formatNextMedia = nextMedia.src.split('.');
+//                     if(formatNextMedia.at(-1) == 'mp4'){ 
+//                         med = document.createElement('video');
+//                         med.setAttribute('class', 'video-full-screen');
+//                         med.setAttribute('controls', 'controls');
+//                         med.setAttribute('src', nextMedia.src);
+//                     } else{
+//                         med = document.createElement('img');
+//                         med.setAttribute('class', 'image-full-screen');
+//                         med.setAttribute("alt", nextMedia.alt);
+//                         med.setAttribute('src', nextMedia.src);
+//                     }
     
-                    imgBox.replaceChild(med, imgBox.firstChild);
+//                     imgBox.replaceChild(med, imgBox.firstChild);
     
-                }else{
-                    imgBox.firstChild.src = medias[0].src;
-                    title.textContent = nextMedia.alt;
-                }
-            }
-        });
-    }
-});
+//                 }else{
+//                     imgBox.firstChild.src = medias[0].src;
+//                     title.textContent = nextMedia.alt;
+//                 }
+//             }
+//         });
+//     }
+// });
 
 function prevMed(e){
     let currentMedia = imgBox.firstChild.src;
@@ -218,18 +221,20 @@ function prevMed(e){
                     med.setAttribute('class', 'video-full-screen');
                     med.setAttribute('controls', 'controls');
                     med.setAttribute('src', prevMedia.src);
+                    title.textContent = prevMedia.title;
                 } else{
                     med = document.createElement('img');
                     med.setAttribute('class', 'image-full-screen');
                     med.setAttribute("alt", prevMedia.alt)
                     med.setAttribute('src', prevMedia.src);
+                    title.textContent = prevMedia.alt;
                 }
 
                 imgBox.replaceChild(med, imgBox.firstChild);
 
             }else{
                 imgBox.firstChild.src = medias[medias.length - 1].src;
-                title.textContent = prevMedia.alt;
+                title.textContent = medias[medias.length - 1].alt;
             }
         }
     });

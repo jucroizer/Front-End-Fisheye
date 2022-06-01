@@ -7,7 +7,6 @@ let tabTitle = [];
 let tabDate = [];
 let like = 0;
 let tabMedia = [];
-console.log(tabMedia);
 let totLikes = 0;
 let newtab;
 
@@ -23,9 +22,7 @@ const getPhotographer = async() => {
 }
 
 async function displayData(photographers) {
-    // console.log(photographers);
-    // console.log(media);
-    console.log('je m appelle');
+   
     // recupere l'element parent
     const photographersSection = document.querySelector("#photograph-header");
     const photographersMedia = document.querySelector("#photographer_image");
