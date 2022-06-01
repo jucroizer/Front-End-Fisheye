@@ -124,13 +124,13 @@ let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 const nextMediaBtn = document.getElementById('next-btn');
 const prevMediaBtn = document.getElementById('previous-btn');
 
-setTimeout(arrowNav, 1000);
+// setTimeout(arrowNav, 1000);
 
 prevMediaBtn.addEventListener('click', prevMed);
 nextMediaBtn.addEventListener('click', nextMed);
 
-nextMediaBtn.addEventListener('keyup', arrowNav);
-prevMediaBtn.addEventListener('keyup', arrowNav);
+
+// prevMediaBtn.addEventListener('keyup', arrowNav);
 
 
 function nextMed(e){
@@ -167,6 +167,42 @@ function nextMed(e){
     });
 }
 
+nextMediaBtn.addEventListener('keyup', e => {
+    if(e.isComposing || e.key === 'ArrowRight'){
+        let currentMedia = imgBox.firstChild.src;
+        let nextMedia;
+    
+        medias.forEach(media => {   
+            if(media.src == currentMedia){
+                nextMedia = medias[medias.indexOf(media) + 1];
+                console.log(nextMedia);
+    
+                if(nextMedia){
+                    let formatNextMedia = nextMedia.src.split('.');
+                    if(formatNextMedia.at(-1) == 'mp4'){ 
+                        console.log(nextMedia.src.at(-1));
+                        med = document.createElement('video');
+                        med.setAttribute('class', 'video-full-screen');
+                        med.setAttribute('controls', 'controls');
+                        med.setAttribute('src', nextMedia.src);
+                    } else{
+                        med = document.createElement('img');
+                        med.setAttribute('class', 'image-full-screen');
+                        med.setAttribute("alt", nextMedia.alt);
+                        med.setAttribute('src', nextMedia.src);
+                    }
+    
+                    imgBox.replaceChild(med, imgBox.firstChild);
+    
+                }else{
+                    imgBox.firstChild.src = medias[0].src;
+                    title.textContent = nextMedia.alt;
+                }
+            }
+        });
+    }
+});
+
 function prevMed(e){
     let currentMedia = imgBox.firstChild.src;
     let prevMedia;
@@ -199,20 +235,20 @@ function prevMed(e){
     });
 }
 
-function arrowNav(e){
+// function arrowNav(e){
 
-    // if(e === undefined){
-    //     nextMed(e);
-    // }
+//     // if(e === undefined){
+//     //     nextMed(e);
+//     // }
 
-    if(e.key === 'ArrowRight'){
-        nextMed(e);
-        console.log(e);
-    }
-    else if(e.key === 'ArrowLeft'){
-        prevMed(e);
-    }
-}
+//     if(e.key === 'ArrowRight'){
+//         nextMed(e);
+//         console.log(e);
+//     }
+//     else if(e.key === 'ArrowLeft'){
+//         prevMed(e);
+//     }
+// }
 
 //################################################################################################################################
 }

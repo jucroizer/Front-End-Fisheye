@@ -315,7 +315,16 @@ html, body{
     color: #000000;
 }
 
-.send{
+#send{
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
     margin-top: 32em;
     margin-left: -30.7em;
     position: absolute;

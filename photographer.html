@@ -16,7 +16,7 @@
     <main id="main">
 
       <div id="photograph-header">
-        <button class="contact_button" onclick="displayModal()" aria-label="Contact me">Contactez-moi</button>
+        <button class="contact_button" aria-label="Contact me">Contactez-moi</button>
       </div>
 
       <div id="photographer_image"></div>
@@ -26,10 +26,10 @@
 			<div class="modal">
 				<header id="contact-header">
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img id="close" src="assets/icons/close.svg"/>
         </header>
 				<form id="contact-form">
-          <button class="contact_button send" aria-label="Send">Envoyer</button>
+          <input type="button" id="send" value="Envoyer" aria-label="Send">
 				</form>
 			</div>
 		</div>
