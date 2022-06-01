@@ -172,40 +172,6 @@ function nextMed(e){
     });
 }
 
-// nextMediaBtn.addEventListener('keyup', e => {
-//     if(e.isComposing || e.key === 'ArrowRight'){
-//         let currentMedia = imgBox.firstChild.src;
-//         let nextMedia;
-    
-//         medias.forEach(media => {   
-//             if(media.src == currentMedia){
-//                 nextMedia = medias[medias.indexOf(media) + 1];
-    
-//                 if(nextMedia){
-//                     let formatNextMedia = nextMedia.src.split('.');
-//                     if(formatNextMedia.at(-1) == 'mp4'){ 
-//                         med = document.createElement('video');
-//                         med.setAttribute('class', 'video-full-screen');
-//                         med.setAttribute('controls', 'controls');
-//                         med.setAttribute('src', nextMedia.src);
-//                     } else{
-//                         med = document.createElement('img');
-//                         med.setAttribute('class', 'image-full-screen');
-//                         med.setAttribute("alt", nextMedia.alt);
-//                         med.setAttribute('src', nextMedia.src);
-//                     }
-    
-//                     imgBox.replaceChild(med, imgBox.firstChild);
-    
-//                 }else{
-//                     imgBox.firstChild.src = medias[0].src;
-//                     title.textContent = nextMedia.alt;
-//                 }
-//             }
-//         });
-//     }
-// });
-
 function prevMed(e){
     let currentMedia = imgBox.firstChild.src;
     let prevMedia;
@@ -240,20 +206,26 @@ function prevMed(e){
     });
 }
 
-// function arrowNav(e){
+document.addEventListener('keydown', function (event) {
+    if (event.defaultPrevented) {
+      return; // Ne devrait rien faire si l'événement de la touche était déjà consommé.
+    }
+    switch (event.key) {
+        case "ArrowLeft":
+          // Faire quelque chose pour la touche "left arrow" pressée.
+          prevMed(event);
+          break;
+        case "ArrowRight":
+          // Faire quelque chose pour la touche "right arrow" pressée.
+          nextMed(event);
+          break;
 
-//     // if(e === undefined){
-//     //     nextMed(e);
-//     // }
+        default:
+          return; // Quitter lorsque cela ne gère pas l'événement touche.
+      }
+      event.preventDefault();
+    }, true);
 
-//     if(e.key === 'ArrowRight'){
-//         nextMed(e);
-//         console.log(e);
-//     }
-//     else if(e.key === 'ArrowLeft'){
-//         prevMed(e);
-//     }
-// }
 
 //################################################################################################################################
 }
