@@ -17,7 +17,7 @@ function photographerFactory(data) {
         article.setAttribute('id', id);
         
         const a = document.createElement('a');
-        a.setAttribute('href', './photographer.html?id=' + id);
+        a.setAttribute('href', 'photographer.html?id=' + id);
 
         const img = document.createElement('img');
         img.setAttribute("src", picture);
