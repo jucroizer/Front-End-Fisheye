@@ -61,25 +61,6 @@ openInPhoto.addEventListener('click', function(e) {
     const previous = document.createElement('button');
     previous.setAttribute('id', 'previous-btn');
     // previous.textContent = 'precedent';
-
-    const imgBox = document.createElement('div');
-    imgBox.setAttribute('class', 'img-container');
-    // DEBUT VERIFICATION IMAGE OU VIDEO ##############################################################################################
-    let med = null;
-
-    if(mediaFormat.at(-1) == 'mp4'){ 
-        med = document.createElement('video');
-        med.setAttribute('class', 'video-full-screen');
-        med.setAttribute('controls', 'controls');
-
-        med.setAttribute('src', src);
-    } else{
-        med = document.createElement('img');
-        med.setAttribute('class', 'image-full-screen');
-        med.setAttribute("alt", `${src.alt}`)
-        med.setAttribute('src', src);
-    }
-    // FIN VERIFICATION IMAGE OU VIDEO####################################################################################################
     
     const title = document.createElement('p');
     title.setAttribute('class', 'lgtb-img-title');
@@ -94,6 +75,25 @@ openInPhoto.addEventListener('click', function(e) {
             
         }
     }
+
+    const imgBox = document.createElement('div');
+    imgBox.setAttribute('class', 'img-container');
+    // DEBUT VERIFICATION IMAGE OU VIDEO ##############################################################################################
+    let med = null;
+
+    if(mediaFormat.at(-1) == 'mp4'){ 
+        med = document.createElement('video');
+        med.setAttribute('class', 'video-full-screen');
+        med.setAttribute('controls', 'controls');
+        med.setAttribute('title', src.title);
+        med.setAttribute('src', src);
+    } else{
+        med = document.createElement('img');
+        med.setAttribute('class', 'image-full-screen');
+        med.setAttribute("alt", `${src.alt}`)
+        med.setAttribute('src', src);
+    }
+    // FIN VERIFICATION IMAGE OU VIDEO####################################################################################################
     
     imgBox.appendChild(med);
     imgBox.appendChild(title);
@@ -114,8 +114,6 @@ openInPhoto.addEventListener('click', function(e) {
 
 //################################################################################################################################
 
-let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
-
 const nextMediaBtn = document.getElementById('next-btn');
 const prevMediaBtn = document.getElementById('previous-btn');
 
@@ -124,25 +122,27 @@ nextMediaBtn.addEventListener('click', nextMed);
 
 
 function nextMed(e){
+    let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
     let currentMedia = imgBox.firstChild.src;
     let nextMedia;
+
+    console.log(currentMedia);
 
     medias.forEach(media => {   
         if(media.src == currentMedia){
             nextMedia = medias[medias.indexOf(media) + 1];
 
+            console.log(nextMedia);
             if(nextMedia){
-                console.log(nextMedia);
                 let formatNextMedia = nextMedia.src.split('.');
                 if(formatNextMedia.at(-1) == 'mp4'){ 
-                    console.log(nextMedia.src.at(-1));
                     med = document.createElement('video');
                     med.setAttribute('class', 'video-full-screen');
                     med.setAttribute('controls', 'controls');
+                    med.setAttribute('title', nextMedia.title);
                     med.setAttribute('src', nextMedia.src);
                     title.textContent = nextMedia.title;
                 } else{
-                    console.log(nextMedia.alt);
                     med = document.createElement('img');
                     med.setAttribute('class', 'image-full-screen');
                     med.setAttribute('alt', nextMedia.alt);
@@ -153,14 +153,35 @@ function nextMed(e){
                 imgBox.replaceChild(med, imgBox.firstChild);
 
             }else{
-                imgBox.firstChild.src = medias[0].src;
-                title.firstChild.textContent = medias[0].alt;
+                let format = medias[0].src.split('.');
+                console.log(format);
+                
+                if(format.at(-1) == 'mp4'){
+                    med = document.createElement('video');
+                    med.setAttribute('class', 'video-full-screen');
+                    med.setAttribute('controls', 'controls');
+                    med.setAttribute('title', medias[0].title);
+                    med.setAttribute('src', medias[0].src);
+                    title.textContent = medias[0].src;
+                }else{
+                    med = document.createElement('img');
+                    med.setAttribute('class', 'image-full-screen');
+                    med.setAttribute('alt', medias[0].alt);
+                    med.setAttribute('src', medias[0].src);
+                    title.textContent = medias[0].alt;
+                }
+
+                imgBox.replaceChild(med, imgBox.firstChild);
+
+                // imgBox.firstChild.src = medias[0].src;
+                // title.firstChild.textContent = medias[0].alt;
             }
         }
     });
 }
 
 function prevMed(e){
+    let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
     let currentMedia = imgBox.firstChild.src;
     let prevMedia;
 
@@ -174,6 +195,7 @@ function prevMed(e){
                     med = document.createElement('video');
                     med.setAttribute('class', 'video-full-screen');
                     med.setAttribute('controls', 'controls');
+                    med.setAttribute('title', prevMedia.title);
                     med.setAttribute('src', prevMedia.src);
                     title.textContent = prevMedia.title;
                 } else{
@@ -187,18 +209,32 @@ function prevMed(e){
                 imgBox.replaceChild(med, imgBox.firstChild);
 
             }else{
-                imgBox.firstChild.src = medias[medias.length - 1].src;
-                title.textContent = medias[medias.length - 1].alt;
+                let index = medias.length - 1;
+                let format = medias[index].src.split('.');
+                console.log(format);
+                
+                if(format.at(-1) == 'mp4'){
+                    med = document.createElement('video');
+                    med.setAttribute('class', 'video-full-screen');
+                    med.setAttribute('controls', 'controls');
+                    med.setAttribute('title', medias[index].title);
+                    med.setAttribute('src', medias[index].src);
+                    title.textContent = medias[index].title;
+                }else{
+                    med = document.createElement('img');
+                    med.setAttribute('class', 'image-full-screen');
+                    med.setAttribute('alt',medias[index].alt);
+                    med.setAttribute('src', medias[index].src);
+                    title.textContent = medias[index].alt;
+                }
+
+                imgBox.replaceChild(med, imgBox.firstChild);
             }
         }
     });
 }
 
-document.addEventListener('keydown', function (event) {
-    
-    if (event.defaultPrevented) {
-      return; // Ne devrait rien faire si l'événement de la touche était déjà consommé.
-    }
+window.addEventListener('keydown', function (event) {
 
     switch (event.key) {
         case "ArrowLeft":
@@ -214,6 +250,7 @@ document.addEventListener('keydown', function (event) {
           return; // Quitter lorsque cela ne gère pas l'événement touche.
       }
       event.preventDefault();
+      
 }, true);
 
 //################################################################################################################################

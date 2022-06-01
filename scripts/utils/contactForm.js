@@ -23,6 +23,8 @@ function closeModal() {
 }
 
 function contactForm(){
+
+    // recuperer tous les createElemeent et les remove.
     const headerName = document.getElementById("photographer-name");
     const recupHeaderName = ' ' + headerName.textContent;
 
@@ -79,6 +81,10 @@ function contactForm(){
     messageInput.setAttribute('name', 'message');
     messageInput.setAttribute('aria-labelledby', 'Your Message');
 
+
+
+    // <input type="button" id="send" value="Envoyer" aria-label="Send"></input>
+
     divFirst.appendChild(first);
     divFirst.appendChild(firstInput);
 
@@ -127,5 +133,8 @@ function submissionForm(){
     
 
     const modal = document.getElementById("contact_modal");
+    const form = document.getElementById("contact-form");
+
     modal.style.display = "none";
+    form.querySelectorAll('*').forEach( n => n.remove());
 }
