@@ -1,14 +1,12 @@
 let params = new URLSearchParams(window.location.search).get('id');
-
+   
 let price = 0;
 let tabPop = [];
 let tabLikes = [];
 let tabTitle = [];
 let tabDate = [];
-let like = 0;
 let tabMedia = [];
 let totLikes = 0;
-let newtab;
 
 const getPhotographer = async() => {
 //     return await fetch('http://127.0.0.1:5504/data/photographers.json')
@@ -24,7 +22,7 @@ const getPhotographer = async() => {
 async function displayData(photographers) {
    
     // recupere l'element parent
-    const photographersSection = document.querySelector("#photograph-header");
+    // const photographersSection = document.querySelector("#photograph-header");
     const photographersMedia = document.querySelector("#photographer_image");
 
 
@@ -33,13 +31,13 @@ async function displayData(photographers) {
         if(photographer.id == params){
             //recupere les elements de la factory
             const photographerModel = photographerFactory(photographer);
-
+            console.log(photographerModel);
             price = photographer.price;
 
             // console.log(price);
 
             // recupere les elements a inserer dans le HTML
-            const getPhotographerMeta = photographerModel.getPhotographerMeta();
+            photographerModel.getPhotographerMeta();
             // insere les elements a inserer de la factory dans l'element parent
             // photographersSection.appendChild(getPhotographerMeta);
         }
@@ -75,7 +73,7 @@ async function displayData(photographers) {
 
     });
     
-};
+}
 
 async function init() {
     // Récupère les datas des photographes et les medias
@@ -83,7 +81,7 @@ async function init() {
     // console.log(photographers);
     displayData(photographers.photographers);
     displayData(photographers.media);
-};
+}
 
 init();
 
@@ -325,12 +323,12 @@ function filterDate(){
 
 function refreshMedia(mediaSort) {
 
-    console.log(mediaSort);
+    let data = 0;
     const removePhoto = document.getElementById('photographer_image');
     removePhoto.innerHTML = '';
 
     for(data in mediaSort){
-        // console.log(mediaSort);
+        
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
 
@@ -374,7 +372,7 @@ function refreshMedia(mediaSort) {
         btnLike.appendChild(heartLike);
         removePhoto.appendChild(photoDiv);
     }
-    
+
     setTimeout(countLike, 2000);
 }
 

@@ -3,7 +3,7 @@
 function photographerFactory(data) {
     // console.log(data);
     const { name, id, city, country,  tagline, price, portrait, photographerId, 
-        title, image, likes, video } = data;
+        title, likes } = data;
 
     const picture = `assets/photographers/Photographers ID Photos/${portrait}`;
     // const mediaImg = `assets/photographers/${photographerId}/${image}`;

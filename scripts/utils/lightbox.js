@@ -2,22 +2,22 @@
  * Création de la lightbox
  */ 
 
- function close(e) {
+ function closeLightbox(e) {
     e.preventDefault();
 
     let liElements = document.querySelectorAll("#lightbox");
     if (liElements.length > 0) {
         liElements[0].remove();
     }
-    document.removeEventListener('keyup', this.onKeyUp);
+    // document.removeEventListener('keyup', this.onKeyUp);
 }
 
 // Fermeture avec la touche Echap
-function onKeyUp(e){
-    if(e.key == 'Escape'){
-        this.close(e);
-    }
-}
+// function onKeyUp(e){
+//     if(e.key == 'Escape'){
+//         this.close(e);
+//     }
+// }
 
 const openInPhoto = document.getElementById('photographer_image');
 
@@ -43,8 +43,6 @@ openInPhoto.addEventListener('click', function(e) {
     let mediaFormat = src.split('.');
     console.log(mediaFormat.at(-1)); // on recupère le dernière element du tableau soit jpg soit mp4
     //################################################################################################################
-    
-    this.src = null;
     
     const lightbox = document.createElement('div');
     lightbox.setAttribute('id', 'lightbox');
@@ -105,12 +103,8 @@ openInPhoto.addEventListener('click', function(e) {
     
     document.body.appendChild(lightbox);
 
-    this.src = src;
+    document.getElementById('close-btn').addEventListener('click', closeLightbox);
 
-    // EventListenner de fermeture de la modale
-    this.onKeyUp = this.onKeyUp.bind(this);
-    document.getElementById('close-btn').addEventListener('click', this.close.bind(this));
-    document.addEventListener('keyup', this.onKeyUp);
 
 //################################################################################################################################
 
@@ -121,7 +115,7 @@ prevMediaBtn.addEventListener('click', prevMed);
 nextMediaBtn.addEventListener('click', nextMed);
 
 
-function nextMed(e){
+function nextMed(){
     let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
     let currentMedia = imgBox.firstChild.src;
     let nextMedia;
@@ -180,7 +174,7 @@ function nextMed(e){
     });
 }
 
-function prevMed(e){
+function prevMed(){
     let medias = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
     let currentMedia = imgBox.firstChild.src;
     let prevMedia;
@@ -245,12 +239,15 @@ window.addEventListener('keydown', function (event) {
           // Faire quelque chose pour la touche "right arrow" pressée.
           nextMed(event);
           break;
+        case "Escape":
+            closeLightbox(event);
+            break;
 
         default:
           return; // Quitter lorsque cela ne gère pas l'événement touche.
       }
       event.preventDefault();
-      
+
 }, true);
 
 //################################################################################################################################
