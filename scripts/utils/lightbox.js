@@ -25,7 +25,7 @@ openInPhoto.addEventListener('click', function(e) {
     }
 }, false);
 
- function lightBox(src){
+function lightBox(src){
 
     let alts = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
     console.log(alts);
