@@ -24,14 +24,17 @@ function closeModal() {
 
 function contactForm(){
 
-    // recuperer tous les createElemeent et les remove.
     const headerName = document.getElementById("photographer-name");
-    const recupHeaderName = ' ' + headerName.textContent;
 
     const form = document.getElementById('contact-form');
 
     const header = document.querySelector('h2');
-    header.insertAdjacentText('beforeend', recupHeaderName);
+
+    const headerSpan = document.createElement('span');
+    headerSpan.setAttribute('id', 'headerSpanArtist');
+    headerSpan.textContent = ' ' + headerName.textContent;
+
+    header.appendChild(headerSpan);
 
     const divFirst = document.createElement('div');
     divFirst.setAttribute('class', 'input-field');
@@ -41,6 +44,7 @@ function contactForm(){
     first.textContent = 'Prénom';
 
     const firstInput = document.createElement('input');
+    firstInput.setAttribute('id', 'firstname')
     firstInput.setAttribute('type', 'text');
     firstInput.setAttribute('name', 'firstname');
     firstInput.setAttribute('aria-labelledby', 'First Name');
@@ -88,14 +92,6 @@ function contactForm(){
     messageInput.setAttribute('name', 'message');
     messageInput.setAttribute('aria-labelledby', 'Your Message');
 
-    // const sendInput = document.createElement('input');
-    // sendInput.setAttribute('type', 'button');
-    // sendInput.setAttribute('id', 'send');
-    // sendInput.setAttribute('value', 'Envoyer');
-    // sendInput.setAttribute('aria-label', 'Send');
-
-
-    // <input type="button" id="send" value="Envoyer" aria-label="Send"></input>
 
     divFirst.appendChild(first);
     divFirst.appendChild(firstInput);
@@ -113,7 +109,6 @@ function contactForm(){
     form.appendChild(divName);
     form.appendChild(divMail);
     form.appendChild(divMessage); 
-    // form.appendChild(sendInput);
 }
 
 
@@ -153,7 +148,8 @@ function removeItem() {
     
     const removeForm = document.querySelectorAll(".input-field");
 
-    document.getElementById("photographer-name").innerHTML = '';
+    const removeHeaderForm = document.querySelector('#headerSpanArtist');
+    removeHeaderForm.innerHTML = ' ';
 
     removeForm.forEach(e => {
         e.remove();
