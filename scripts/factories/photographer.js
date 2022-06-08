@@ -1,5 +1,4 @@
 
-
 function photographerFactory(data) {
     // console.log(data);
     const { name, id, city, country,  tagline, price, portrait, photographerId, 

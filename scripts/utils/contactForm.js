@@ -34,8 +34,11 @@ function contactForm(){
     header.insertAdjacentText('beforeend', recupHeaderName);
 
     const divFirst = document.createElement('div');
+    divFirst.setAttribute('class', 'input-field');
+
     const first = document.createElement('label');
     first.setAttribute('for', 'firstname');
+    first.setAttribute('id', 'firstname-label');
     first.textContent = 'Prénom';
 
     const firstInput = document.createElement('input');
@@ -47,6 +50,8 @@ function contactForm(){
 
 
     const divName = document.createElement('div');
+    divName.setAttribute('class', 'input-field');
+
     const name = document.createElement('label');
     name.setAttribute('for', 'name');
     name.textContent = 'Nom';
@@ -59,6 +64,8 @@ function contactForm(){
 
 
     const divMail = document.createElement('div');
+    divMail.setAttribute('class', 'input-field');
+
     const mail= document.createElement('label');
     mail.setAttribute('for', 'mail');
     mail.textContent = 'Email';
@@ -71,6 +78,8 @@ function contactForm(){
 
 
     const divMessage = document.createElement('div');
+    divMessage.setAttribute('class', 'input-field');
+
     const message= document.createElement('label');
     message.setAttribute('for', 'message')
     message.textContent = 'Votre Message';
@@ -81,6 +90,11 @@ function contactForm(){
     messageInput.setAttribute('name', 'message');
     messageInput.setAttribute('aria-labelledby', 'Your Message');
 
+    // const sendInput = document.createElement('input');
+    // sendInput.setAttribute('type', 'button');
+    // sendInput.setAttribute('id', 'send');
+    // sendInput.setAttribute('value', 'Envoyer');
+    // sendInput.setAttribute('aria-label', 'Send');
 
 
     // <input type="button" id="send" value="Envoyer" aria-label="Send"></input>
@@ -101,12 +115,9 @@ function contactForm(){
     form.appendChild(divName);
     form.appendChild(divMail);
     form.appendChild(divMessage); 
+    // form.appendChild(sendInput);
 }
 
-
-/**
- * Bouton de submission du formulaire id = send
- */
 
 /**
  * Conditions de vérification pour la modal
@@ -133,8 +144,20 @@ function submissionForm(){
     
 
     const modal = document.getElementById("contact_modal");
-    const form = document.getElementById("contact-form");
 
     modal.style.display = "none";
-    form.querySelectorAll('*').forEach( n => n.remove());
+
+    removeItem();
+    
+}
+
+function removeItem() {
+    
+    const removeForm = document.querySelectorAll(".input-field");
+
+    document.getElementById("photographer-name").innerHTML = '';
+
+    removeForm.forEach(e => {
+        e.remove();
+    })
 }

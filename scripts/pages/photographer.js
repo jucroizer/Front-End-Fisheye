@@ -31,15 +31,13 @@ async function displayData(photographers) {
         if(photographer.id == params){
             //recupere les elements de la factory
             const photographerModel = photographerFactory(photographer);
-            console.log(photographerModel);
+            
             price = photographer.price;
 
             // console.log(price);
 
             // recupere les elements a inserer dans le HTML
             photographerModel.getPhotographerMeta();
-            // insere les elements a inserer de la factory dans l'element parent
-            // photographersSection.appendChild(getPhotographerMeta);
         }
     });
 

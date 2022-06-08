@@ -2,22 +2,14 @@
  * Création de la lightbox
  */ 
 
- function closeLightbox(e) {
+function closeLightbox(e) {
     e.preventDefault();
 
     let liElements = document.querySelectorAll("#lightbox");
     if (liElements.length > 0) {
         liElements[0].remove();
     }
-    // document.removeEventListener('keyup', this.onKeyUp);
 }
-
-// Fermeture avec la touche Echap
-// function onKeyUp(e){
-//     if(e.key == 'Escape'){
-//         this.close(e);
-//     }
-// }
 
 const openInPhoto = document.getElementById('photographer_image');
 
