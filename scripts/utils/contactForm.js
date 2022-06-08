@@ -38,11 +38,9 @@ function contactForm(){
 
     const first = document.createElement('label');
     first.setAttribute('for', 'firstname');
-    first.setAttribute('id', 'firstname-label');
     first.textContent = 'Prénom';
 
     const firstInput = document.createElement('input');
-    firstInput.setAttribute('id', 'firstname');
     firstInput.setAttribute('type', 'text');
     firstInput.setAttribute('name', 'firstname');
     firstInput.setAttribute('aria-labelledby', 'First Name');
