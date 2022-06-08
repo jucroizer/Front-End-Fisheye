@@ -8,7 +8,7 @@ html, body{
     top: 0;
     bottom: 0;
     width: 100%;
-    height: 400%;
+    height: cover;
     background-color: rgba(196, 196, 196, 0.4);
 }
 
@@ -390,6 +390,7 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+    font-size: 1.5em;
 }
 
 form textarea{
@@ -457,7 +458,6 @@ form textarea{
 
 .img-container{
     display: flex;
-    align-items: left;
     margin-left: 50px;
     margin-right: 50px;
     flex-direction: column;
