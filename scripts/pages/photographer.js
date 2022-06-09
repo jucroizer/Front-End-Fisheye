@@ -1,5 +1,7 @@
+import {photographerFactory} from '../factories/photographer.js';
+
 let params = new URLSearchParams(window.location.search).get('id');
-   
+ 
 let price = 0;
 let tabPop = [];
 let tabLikes = [];

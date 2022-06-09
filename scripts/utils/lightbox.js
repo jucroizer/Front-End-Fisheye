@@ -28,12 +28,11 @@ openInPhoto.addEventListener('click', function(e) {
 function lightBox(src){
 
     let alts = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
-    console.log(alts);
 
     //################################################################################################################
-    console.log(src);
+    // console.log(src);
     let mediaFormat = src.split('.');
-    console.log(mediaFormat.at(-1)); // on recupère le dernière element du tableau soit jpg soit mp4
+    // console.log(mediaFormat.at(-1)); // on recupère le dernière element du tableau soit jpg soit mp4
     //################################################################################################################
     
     const lightbox = document.createElement('div');
@@ -118,7 +117,7 @@ function nextMed(){
         if(media.src == currentMedia){
             nextMedia = medias[medias.indexOf(media) + 1];
 
-            console.log(nextMedia);
+            // console.log(nextMedia);
             if(nextMedia){
                 let formatNextMedia = nextMedia.src.split('.');
                 if(formatNextMedia.at(-1) == 'mp4'){ 
@@ -140,7 +139,7 @@ function nextMed(){
 
             }else{
                 let format = medias[0].src.split('.');
-                console.log(format);
+                // console.log(format);
                 
                 if(format.at(-1) == 'mp4'){
                     med = document.createElement('video');
@@ -197,7 +196,7 @@ function prevMed(){
             }else{
                 let index = medias.length - 1;
                 let format = medias[index].src.split('.');
-                console.log(format);
+                //console.log(format);
                 
                 if(format.at(-1) == 'mp4'){
                     med = document.createElement('video');

@@ -10,6 +10,7 @@ html, body{
     width: 100%;
     height: 270%;
     background-color: rgba(196, 196, 196, 0.4);
+    z-index: 2;
 }
 
 /* Header du photographe */
@@ -293,7 +294,7 @@ html, body{
 
 /* Formullaire de contact */
 
-.contact_button {
+#contact_button {
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -307,7 +308,6 @@ html, body{
     position: relative;
     top: 6em;
     left: 28em;
-    
 }
 
 .contact_button:hover{

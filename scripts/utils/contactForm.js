@@ -1,4 +1,4 @@
-const display = document.querySelector('.contact_button');
+const display = document.querySelector('#contact_button');
 display.addEventListener('click', displayModal);
 
 function displayModal() {
@@ -47,7 +47,7 @@ function contactForm(){
     firstInput.setAttribute('id', 'firstname')
     firstInput.setAttribute('type', 'text');
     firstInput.setAttribute('name', 'firstname');
-    firstInput.setAttribute('aria-labelledby', 'First Name');
+    // firstInput.setAttribute('aria-labelledby', 'First Name');
     console.log(firstInput.value);
 
 
@@ -62,7 +62,7 @@ function contactForm(){
     nameInput.setAttribute('id', 'name');
     nameInput.setAttribute('type', 'text');
     nameInput.setAttribute('name', 'name');
-    nameInput.setAttribute('aria-labelledby', 'Last Name');
+    // nameInput.setAttribute('aria-labelledby', 'Last Name');
 
 
     const divMail = document.createElement('div');
@@ -76,7 +76,7 @@ function contactForm(){
     mailInput.setAttribute('id', 'mail');
     mailInput.setAttribute('name', 'mail');
     mailInput.setAttribute('type', 'text');
-    mailInput.setAttribute('aria-labelledby', 'Email');
+    // mailInput.setAttribute('aria-labelledby', 'Email');
 
 
     const divMessage = document.createElement('div');
@@ -90,7 +90,7 @@ function contactForm(){
     messageInput.setAttribute('type', 'text');
     messageInput.setAttribute('id', 'message');
     messageInput.setAttribute('name', 'message');
-    messageInput.setAttribute('aria-labelledby', 'Your Message');
+    // messageInput.setAttribute('aria-labelledby', 'Your Message');
 
 
     divFirst.appendChild(first);
@@ -155,3 +155,7 @@ function removeItem() {
         e.remove();
     })
 }
+
+document.getElementById('contact_button').addEventListener('click', function(){
+    document.getElementById('contact-form').focus();
+});

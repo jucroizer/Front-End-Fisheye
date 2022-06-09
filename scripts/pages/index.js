@@ -1,4 +1,5 @@
-// export * from 'scripts/factories/photographer.js';
+import {photographerFactory} from '../factories/photographer.js';
+// export {getPhotographers};
     
     const getPhotographers = async() => {
 //         return await fetch('http://127.0.0.1:5504/data/photographers.json')
