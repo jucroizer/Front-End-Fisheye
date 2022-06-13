@@ -1,16 +1,14 @@
 export {photographerFactory};
 
     function photographerFactory(data) {
-    // console.log(data);
+        
     const { name, id, city, country,  tagline, price, portrait, photographerId, 
         title, likes } = data;
 
+    // Récupération de la photo du photographe
     const picture = `assets/photographers/Photographers ID Photos/${portrait}`;
-    // const mediaImg = `assets/photographers/${photographerId}/${image}`;
-    // const mediaVid = `assets/photographers/${photographerId}/${video}`;
-    // console.log(media)
     
-
+    // Création des éléments HTML de la page d'acceuil
     function getUserCardDOM() {
 
         const article = document.createElement('article');
@@ -54,6 +52,7 @@ export {photographerFactory};
         return (article);
     }
 
+    // Création des éléments HTML du bandeau de la page du photographe
     function getPhotographerMeta() {
 
         const header = document.getElementById('photograph-header');
@@ -92,6 +91,7 @@ export {photographerFactory};
         return(header);
     }
 
+    // Création des éléments HTML de la page photographe
     function getPhotographerMedia() {
 
         const photoDiv = document.createElement('div');
@@ -139,5 +139,6 @@ export {photographerFactory};
         return(photoDiv);
     }
 
+    // renvoi les éléments créer dans la factorie
     return { name, picture, getUserCardDOM, getPhotographerMeta, getPhotographerMedia }
 }

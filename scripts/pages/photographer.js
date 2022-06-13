@@ -1,17 +1,27 @@
 import {photographerFactory} from '../factories/photographer.js';
 
+// récupére 
 let params = new URLSearchParams(window.location.search).get('id');
  
+// declaration de la variable price
 let price = 0;
+
+// declaration du tableau vide acceuilant les likes 
 let tabPop = [];
-let tabLikes = [];
+
+// declaration du tableau vide acceuilant les titres
 let tabTitle = [];
+
+// declaration du tableau vide acceuilant les dates
 let tabDate = [];
+
+// declaration du tableau vide acceuilant tous les medias du photographe 
 let tabMedia = [];
+
+// declaration de la variable totalLikes
 let totLikes = 0;
 
 const getPhotographer = async() => {
-//     return await fetch('http://127.0.0.1:5504/data/photographers.json')
     return await fetch('https://jucroizer.github.io/JustineCroizer_6_23022022/data/photographers.json')
     // récupération du fichier json
     .then(function(result) { return result.json() })
@@ -24,7 +34,6 @@ const getPhotographer = async() => {
 async function displayData(photographers) {
    
     // recupere l'element parent
-    // const photographersSection = document.querySelector("#photograph-header");
     const photographersMedia = document.querySelector("#photographer_image");
 
 
@@ -34,9 +43,8 @@ async function displayData(photographers) {
             //recupere les elements de la factory
             const photographerModel = photographerFactory(photographer);
             
+            // Récupére le prix 
             price = photographer.price;
-
-            // console.log(price);
 
             // recupere les elements a inserer dans le HTML
             photographerModel.getPhotographerMeta();
@@ -44,30 +52,26 @@ async function displayData(photographers) {
     });
 
     photographers.forEach((media) => {
-        // console.log(media.photographerId);
-        // console.log(photographer.id);
 
-        // let i = 0;
+        // Si l'ID du photographe du media est égale à l'ID passer en paramètre de la page alors
         if(media.photographerId == params){
-            // console.log(media);
+            
+            // Communique avec la factorie et passe en argument les éléments json dont la factorie a besoin
             const photographerModel = photographerFactory(media);
-            // console.log(photographerModel);
-
+            
             // recupere les elements a inserer dans le HTML
             const getPhotographerMedia = photographerModel.getPhotographerMedia();
-            // newtab = getPhotographerMedia;
-            // console.log(newtab);
 
+            // Récupére et additionne tous les likes pour obtenir le total de likes
             totLikes += media.likes;
 
+            // Insertion des données dans les tableaux
             tabPop.push(media);
             tabTitle.push(media);
             tabDate.push(media);
             tabMedia.push(media);
-            tabLikes.push(media.likes);
 
-            
-            // insere les elements a inserer de la factory dans l'element parent
+           // insére les éléments dans le DOM
             photographersMedia.appendChild(getPhotographerMedia);
         }
 
@@ -78,17 +82,19 @@ async function displayData(photographers) {
 async function init() {
     // Récupère les datas des photographes et les medias
     const photographers  = await getPhotographer();
-    // console.log(photographers);
+    
     displayData(photographers.photographers);
     displayData(photographers.media);
 }
 
 init();
 
+
 /**
  * Affichage des totaux
  */
 
+// Déclenche la fonction au bout d'une seconde
 setTimeout(afficherLikes, 1000);
 
 function afficherLikes(){
@@ -102,7 +108,6 @@ function afficherLikes(){
     const totalLikes = document.createElement('p');
     totalLikes.setAttribute('class', 'totalLikes');
     totalLikes.textContent = totLikes;
-            // console.log(totLikes);
 
     const heartTot = document.createElement('i');
     heartTot.setAttribute('class', 'fas fa-heart heart-tot');
@@ -123,29 +128,41 @@ function afficherLikes(){
     globalMedia.appendChild(priceRecap);
        
     document.getElementById('main').appendChild(globalMedia);
-
 }
 
 /**
 *  Compteur de likes
 */
 
+// Déclenche la fonction au bout de deux seconde
 setTimeout(countLike, 2000);
 
 function countLike(){
+    // Récupére tous les éléments ayant la classe btn-likes
     const btnLike = document.querySelectorAll(".btn-like");
     
+    // Boucle sur tous les elemts du tableau btnLike
     for (var i = 0 ; i < btnLike.length; i++) {
+        // au clique sur l'un des boutons 
         btnLike[i].addEventListener('click', function(e){
             e = e || window.event; 
-            const target = e.target;
-            const parentTarget = target.parentNode.parentNode;
-            let likeCount = parentTarget.firstChild;
-            let value = parseInt(likeCount.innerHTML);
-            const totCountLike = document.querySelector('.totalLikes');
 
+            // recupere l'icone heart
+            const target = e.target;
+            // recupere la div parente soit div-like
+            const parentTarget = target.parentNode.parentNode;
+            // recupere le premier enfant du parent soit le nombre de likes du media
+            let likeCount = parentTarget.firstChild;
+            // recupere la valeur de l'enfant
+            let value = parseInt(likeCount.innerHTML);
+            // recupere la div qui contient le total de likes
+            const totCountLike = document.querySelector('.totalLikes');
+            
+            // ajoute +1 à chaque clique
             value += 1;
+            // remplace la valeur de l'enfant avec la valeur +1
             likeCount.innerHTML = value;
+            // ajoute +1 au nombre de likes
             totCountLike.innerHTML++;
         }); 
     }
@@ -321,10 +338,12 @@ function filterDate(){
     refreshMedia(tabDate);
 }
 
+// Fonction d'affichage des medias en fonctions des filtres
 function refreshMedia(mediaSort) {
 
     let data = 0;
     const removePhoto = document.getElementById('photographer_image');
+    // vide la page
     removePhoto.innerHTML = '';
 
     for(data in mediaSort){
@@ -373,6 +392,7 @@ function refreshMedia(mediaSort) {
         removePhoto.appendChild(photoDiv);
     }
 
+    // rappelle la fonction countLike 2sec après le chargement des medias triés
     setTimeout(countLike, 2000);
 }
 

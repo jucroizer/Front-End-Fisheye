@@ -1,18 +1,22 @@
 const display = document.querySelector('#contact_button');
+// au clique sur le bouton "Contactez-moi" on déclenche la fonction displayModal
 display.addEventListener('click', displayModal);
 
 function displayModal() {
     const modal = document.getElementById("contact_modal");
+    // récupére le nom du photographe
     const name = document.getElementById("photographer-name").innerHTML;
     modal.setAttribute('aria-labelledby', 'Contact me ' + name);
     modal.setAttribute('role', 'dialog');
+    // déclenche la fonction contactForm
     contactForm();
+    // affiche la modal contenant le formulaire
 	modal.style.display = "block";
 }
 
 const closeCro = document.getElementById('close');
-console.log(closeCro);
 
+// au clique sur la croix déclenchement de la fonction closeModal
 closeCro.addEventListener('click', closeModal);
 
 function closeModal() {
@@ -22,6 +26,8 @@ function closeModal() {
     window.location.reload();
 }
 
+
+// fonction de création du formulaire et de ses champs
 function contactForm(){
 
     const headerName = document.getElementById("photographer-name");
@@ -112,17 +118,13 @@ function contactForm(){
 }
 
 
-/**
- * Conditions de vérification pour la modal
- */
-
-// Tableau de booleens pour la vérification
 const btn_submit = document.getElementById('send');
 
-// au click sur le bouton "C'est parti" on appelle la fonction submissionForm
+// au clique sur le bouton "Envoyer" on appelle la fonction submissionForm
 btn_submit.addEventListener('click', submissionForm);
 
 function submissionForm(){
+    // récupération des valeurs entrées par l'utilisateur et impression dans la console
     const prenom = document.getElementById('firstname').value;
     console.log(prenom);
 
@@ -134,14 +136,14 @@ function submissionForm(){
 
     const message = document.getElementById('message').value;
     console.log(message);
-    
 
     const modal = document.getElementById("contact_modal");
 
+    // fermeture de la modale aprés soumission du formulaire
     modal.style.display = "none";
 
+    // déclenceh la fonction qui vide les champs
     removeItem();
-    
 }
 
 function removeItem() {
