@@ -1,12 +1,14 @@
 /**
  * Création de la lightbox
  */ 
+let boolLight = false;
 
 function closeLightbox(e) {
     e.preventDefault();
 
     let liElements = document.querySelectorAll("#lightbox");
     if (liElements.length > 0) {
+        boolLight = false;
         liElements[0].remove();
     }
 }
@@ -30,6 +32,7 @@ openInPhoto.addEventListener('click', function(e) {
 
 function lightBox(src){
 
+    boolLight = true;
     let alts = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 
     // permet de savoir si le media est au format jpg ou mp4
@@ -41,14 +44,17 @@ function lightBox(src){
     const lightboxContainer = document.createElement('div');
     lightboxContainer.setAttribute('class', 'ligthbox-container');
 
-    const close = document.createElement('button');
+    const close = document.createElement('input');
     close.setAttribute('id', 'close-btn');
+    close.setAttribute('type', 'button')
 
-    const next = document.createElement('button');
+    const next = document.createElement('input');
     next.setAttribute('id', 'next-btn');
+    next.setAttribute('type', 'button')
 
     const previous = document.createElement('button');
     previous.setAttribute('id', 'previous-btn');
+    previous.setAttribute('type', 'button')
     
     const title = document.createElement('p');
     title.setAttribute('class', 'lgtb-img-title');
@@ -97,6 +103,12 @@ function lightBox(src){
     
     // insertion de la lightbox dans le DOM
     document.body.appendChild(lightbox);
+    lightboxMod = document.getElementById('lightbox');
+    console.log(lightboxMod);
+
+    focLightbox = Array.from(lightboxMod.querySelectorAll(focusableSelectorLight));
+    console.log(focLightbox);
+    focLightbox[0].focus();
 
     // au clique sur la croix déclenche la fonction closeLightbox
     document.getElementById('close-btn').addEventListener('click', closeLightbox);
@@ -264,5 +276,34 @@ window.addEventListener('keydown', function (event) {
 
 }, true);
 
-//################################################################################################################################
+//##############################################################################################################################
 }
+
+let lightboxMod = '';
+
+const focusableSelectorLight = 'button, a, input, textarea';
+let focLightbox = [];
+
+const focusInLightbox = function(e){
+    e.preventDefault();
+    let index = focLightbox.findIndex(f => f === lightboxMod.querySelector(":focus"));
+    if(e.shiftkey === true){
+        index--;
+    }else{
+        index++;
+    }
+    if(index >= focLightbox.length){
+        index = 0;
+    }
+    if(index < 0){
+        index = focLightbox.length - 1;
+    }
+    focLightbox[index].focus();
+};
+
+document.addEventListener('keydown', function(e){
+    if(e.key === "Tab" && boolLight == true){
+        focusInLightbox(e);
+    }
+});
+

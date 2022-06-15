@@ -315,6 +315,17 @@ html, body{
     color: #000000;
 }
 
+#close{
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: url('../assets/icons/closeForm.svg') center center / 32px 32px no-repeat transparent;
+    position: absolute;
+    top: 3em;
+    right: 3em;
+    z-index: 12;
+}
+
 #send{
     font-size: 20px;
     font-weight: bold;

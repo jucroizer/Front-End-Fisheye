@@ -36,7 +36,6 @@ async function displayData(photographers) {
     // recupere l'element parent
     const photographersMedia = document.querySelector("#photographer_image");
 
-
     photographers.forEach((photographer) => {
     //    console.log(photographer);
         if(photographer.id == params){
@@ -157,6 +156,26 @@ function countLike(){
             let value = parseInt(likeCount.innerHTML);
             // recupere la div qui contient le total de likes
             const totCountLike = document.querySelector('.totalLikes');
+
+            // eslint-disable-next-line use-isnan
+            if (isNaN(value)){
+                const parentTarget = target.parentNode;
+                // recupere le premier enfant du parent soit le nombre de likes du media
+                let likeCount = parentTarget.firstChild; 
+                // recupere la valeur de l'enfant
+                let value = parseInt(likeCount.innerHTML);
+                // recupere la div qui contient le total de likes
+                const totCountLike = document.querySelector('.totalLikes');
+
+                // ajoute +1 à chaque clique
+                value += 1;
+                // remplace la valeur de l'enfant avec la valeur +1
+                likeCount.innerHTML = value;
+                // ajoute +1 au nombre de likes
+                totCountLike.innerHTML++;
+
+                return;
+            }
             
             // ajoute +1 à chaque clique
             value += 1;

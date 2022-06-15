@@ -1,11 +1,19 @@
 const display = document.querySelector('#contact_button');
 // au clique sur le bouton "Contactez-moi" on déclenche la fonction displayModal
+
+const closeCro = document.getElementById('close');
+
 display.addEventListener('click', displayModal);
+const modal = document.getElementById("contact_modal");
+
+let boolMod = false;
 
 function displayModal() {
-    const modal = document.getElementById("contact_modal");
+    
+    boolMod = true;
     // récupére le nom du photographe
     const name = document.getElementById("photographer-name").innerHTML;
+
     modal.setAttribute('aria-labelledby', 'Contact me ' + name);
     modal.setAttribute('role', 'dialog');
     // déclenche la fonction contactForm
@@ -14,7 +22,36 @@ function displayModal() {
 	modal.style.display = "block";
 }
 
-const closeCro = document.getElementById('close');
+const focusableSelector = 'button, a, input, textarea';
+let focusables = [];
+
+const focusInModal = function(e){
+    e.preventDefault();
+    let index = focusables.findIndex(f => f === modal.querySelector(":focus"));
+    if(e.shiftkey === true){
+        index--;
+    }else{
+        index++;
+    }
+    if(index >= focusables.length){
+        index = 0;
+    }
+    if(index < 0){
+        index = focusables.length - 1;
+    }
+    focusables[index].focus();
+};
+
+document.addEventListener('keydown', function(e){
+    if(e.key === "Escape" || e.key === "Esc"){
+        e.preventDefault();
+       closeModal(e);
+    }
+    if(e.key === "Tab" && boolMod == true){
+        focusInModal(e);
+    }
+});
+
 
 // au clique sur la croix déclenchement de la fonction closeModal
 closeCro.addEventListener('click', closeModal);
@@ -23,6 +60,7 @@ function closeModal() {
     const modal = document.getElementById("contact_modal");
     modal.setAttribute('aria-label', 'Close Contact Form');
     modal.style.display = "none";
+    boolMod = false;
     window.location.reload();
 }
 
@@ -115,6 +153,9 @@ function contactForm(){
     form.appendChild(divName);
     form.appendChild(divMail);
     form.appendChild(divMessage); 
+
+    focusables = Array.from(modal.querySelectorAll(focusableSelector));
+    focusables[0].focus();
 }
 
 
@@ -158,6 +199,5 @@ function removeItem() {
     })
 }
 
-document.getElementById('contact_button').addEventListener('click', function(){
-    document.getElementById('contact-form').focus();
-});
+
+

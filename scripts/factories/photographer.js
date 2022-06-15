@@ -53,7 +53,7 @@ export {photographerFactory};
     }
 
     // Création des éléments HTML du bandeau de la page du photographe
-    function getPhotographerMeta() {
+     function getPhotographerMeta() {
 
         const header = document.getElementById('photograph-header');
 
