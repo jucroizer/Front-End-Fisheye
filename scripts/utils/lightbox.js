@@ -16,7 +16,34 @@ function closeLightbox(e) {
 const openInPhoto = document.getElementById('photographer_image');
 
 // Ouverture de la ligthbox
-openInPhoto.addEventListener('click', function(e) {
+openInPhoto.addEventListener('click', recupSrc, false);
+
+setTimeout(btnEnter, 1000);
+
+function btnEnter(){
+
+    const btnEnterList = Array.from(document.getElementsByClassName('enterBtn'));
+
+    for(let i = 0; i < btnEnterList.length; i++){
+
+        btnEnterList[i].addEventListener('click', function(e){
+            e = e || window.event;
+
+            // recupere au clique le media  
+            var target = e.path[0].firstChild; 
+           
+            // si le media a pour tag IMG alors..
+            if(target.tagName == 'IMG'){ 
+                // appel de la fonciton lightbox avec pour argument l'URL du media
+                lightBox(target.src); 
+            } else if(target.tagName == 'VIDEO'){
+                lightBox(target.src);
+            }
+        });
+    }
+}
+
+function recupSrc(e) {
     e = e || window.event;
     // recupere au clique le media  
     var target = e.target; 
@@ -28,10 +55,11 @@ openInPhoto.addEventListener('click', function(e) {
     } else if(target.tagName == 'VIDEO'){
         lightBox(target.src);
     }
-}, false);
+}
 
 function lightBox(src){
 
+    console.log(src)
     boolLight = true;
     let alts = Array.from(document.querySelectorAll('.thumb-vid,.thumb-img'));
 

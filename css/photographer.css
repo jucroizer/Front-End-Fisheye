@@ -214,7 +214,7 @@ html, body{
 .photographer-media{
     margin: 30px 47.5px;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 .thumb-img, .thumb-vid{

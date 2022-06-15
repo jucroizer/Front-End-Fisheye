@@ -53,7 +53,7 @@ export {photographerFactory};
     }
 
     // Création des éléments HTML du bandeau de la page du photographe
-     function getPhotographerMeta() {
+    function getPhotographerMeta() {
 
         const header = document.getElementById('photograph-header');
 
@@ -97,13 +97,19 @@ export {photographerFactory};
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
 
+        let link;
+
         let media = document.createElement('img');
         if(data.image != undefined){
+            link = document.createElement('button');
+            link.setAttribute('class', 'enterBtn');
             media = document.createElement('img');
             media.setAttribute("src", `assets/photographers/${photographerId}/${data.image}`);
             media.setAttribute("alt", `${data.title}`);
             media.setAttribute("class", 'media thumb-img');
         }else{
+            link = document.createElement('button');
+            link.setAttribute('class', 'enterBtn');
             media = document.createElement('video');
             media.setAttribute("src", `assets/photographers/${photographerId}/${data.video}`);
             media.setAttribute("type", "video/mp4");
@@ -130,8 +136,10 @@ export {photographerFactory};
         heartLike.setAttribute('aria-label', 'likes');
         heartLike.innerHTML = '<i class="fas fa-heart" aria-hidden="true"></i>';
 
+        
+        photoDiv.appendChild(link);
+        link.appendChild(media);
         photoDiv.appendChild(mediaHeader);
-        photoDiv.appendChild(media);
         mediaHeader.appendChild(pTitle);
         btnLike.appendChild(pLikes);
         mediaHeader.appendChild(btnLike);
