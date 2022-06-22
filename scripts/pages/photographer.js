@@ -1,5 +1,5 @@
 import {photographerFactory} from '../factories/photographer.js';
-
+import {btnEnter} from '../utils/lightbox.js';
 // récupére 
 let params = new URLSearchParams(window.location.search).get('id');
  
@@ -192,6 +192,8 @@ function countLike(){
  */
 function filterNav(){
 
+    // container
+
     const filterBar = document.createElement('div');
     filterBar.setAttribute('id', 'filter-bar');
 
@@ -201,15 +203,17 @@ function filterNav(){
 
     filterBar.appendChild(filterP);
 
+
+    // menu deroulant
     const navFilter = document.createElement('div');
     navFilter.setAttribute('class', 'select-box');
-
-    filterBar.appendChild(navFilter);
+    navFilter.setAttribute('tabIndex', '0');
 
     const container = document.createElement('div');
-    container.setAttribute('class', 'options-container');
+    container.setAttribute('class', 'options-container options-hide');
 
     navFilter.appendChild(container);
+    
 
      /**
      * Bouton filtre Popularité
@@ -220,11 +224,12 @@ function filterNav(){
 
     container.appendChild(optionPop);
 
-    const btnFilterPop = document.createElement('input');
-    btnFilterPop.setAttribute('class', 'button');
-    btnFilterPop.setAttribute('type', 'button');
+    const btnFilterPop = document.createElement('input');      
     btnFilterPop.setAttribute('id', 'pop');
+    btnFilterPop.setAttribute('type', 'button');
+    btnFilterPop.setAttribute('role', 'button');
     btnFilterPop.setAttribute('value', 'Popularité');
+    btnFilterPop.innerHTML = "Popularité";
 
     const labelPop = document.createElement('label');
     labelPop.setAttribute('for', 'pop');
@@ -232,11 +237,7 @@ function filterNav(){
 
     optionPop.appendChild(btnFilterPop);
     optionPop.appendChild(labelPop);
-
-    const spanLine1 = document.createElement('span');
-    spanLine1.setAttribute('class', 'line1');
-    container.appendChild(spanLine1);
-
+    
     /**
      *  Bouton filtre Date
      */
@@ -246,10 +247,11 @@ function filterNav(){
     container.appendChild(optionDate);
 
     const btnFilterDate = document.createElement('input');
-    btnFilterDate.setAttribute('class', 'button');
-    btnFilterDate.setAttribute('type', 'button');
     btnFilterDate.setAttribute('id', 'date');
+    btnFilterDate.setAttribute('type', 'button');
+    btnFilterDate.setAttribute('role', 'button');
     btnFilterDate.setAttribute('value', 'Date');
+    btnFilterDate.innerHTML = "Date";
 
     const labelDate = document.createElement('label');
     labelDate.setAttribute('for', 'date');
@@ -257,10 +259,6 @@ function filterNav(){
 
     optionDate.appendChild(btnFilterDate);
     optionDate.appendChild(labelDate);
-
-    const spanLine2 = document.createElement('span');
-    spanLine2.setAttribute('class', 'line2');
-    container.appendChild(spanLine2);
 
     /**
      *  Bouton filtre Titre
@@ -271,11 +269,11 @@ function filterNav(){
     container.appendChild(optionTitle);
 
     const btnFilterTit = document.createElement('input');
-    // btnFilterTit.setAttribute('id', 'title');
-    btnFilterTit.setAttribute('class', 'button');
-    btnFilterTit.setAttribute('type', 'button');
     btnFilterTit.setAttribute('id', 'title');
+    btnFilterTit.setAttribute('type', 'button');
+    btnFilterTit.setAttribute('role', 'button');
     btnFilterTit.setAttribute('value', 'Titre');
+    btnFilterTit.innerHTML = "Titre";
 
     const labelTitle = document.createElement('label');
     labelTitle.setAttribute('for', 'title');
@@ -287,16 +285,22 @@ function filterNav(){
     /**
      *  Fléche ouverture du menu deroulant
      */
-    const divArrow = document.createElement('div');
-    divArrow.setAttribute('class', 'selected');
-
+     const divArrow = document.createElement('div');
+     divArrow.setAttribute('class', 'selected');
+     
     navFilter.appendChild(divArrow);
 
+    filterBar.appendChild(navFilter);
+
+   
+
+    
     document.getElementById('main').appendChild(filterBar);
     
 }
 
 filterNav();
+window.location.hash = "#select-box";
 
 /**
  * Insertion du selecteur de filtre avant les images du photgraphe
@@ -370,13 +374,19 @@ function refreshMedia(mediaSort) {
         const photoDiv = document.createElement('div');
         photoDiv.setAttribute('class', 'photographer-media');
 
+        let link;
+
         let media = document.createElement('img');
         if(mediaSort[data].image != undefined){
+            link = document.createElement('button');
+            link.setAttribute('class', 'enterBtn');
             media = document.createElement('img');
             media.setAttribute("src", `assets/photographers/${mediaSort[data].photographerId}/${mediaSort[data].image}`);
             media.setAttribute("alt", `${mediaSort[data].title}`);
             media.setAttribute("class", 'thumb-img');
         }else{
+            link = document.createElement('button');
+            link.setAttribute('class', 'enterBtn');
             media = document.createElement('video');
             media.setAttribute("src", `assets/photographers/${mediaSort[data].photographerId}/${mediaSort[data].video}`);
             media.setAttribute("type", "video/mp4");
@@ -401,9 +411,10 @@ function refreshMedia(mediaSort) {
         const heartLike = document.createElement('button');
         heartLike.setAttribute('class', 'btn-like');
         heartLike.innerHTML = '<i class="fas fa-heart" aria-hidden="true"></i>';
-
+        
+        photoDiv.appendChild(link);
+        link.appendChild(media);
         photoDiv.appendChild(mediaHeader);
-        photoDiv.appendChild(media);
         mediaHeader.appendChild(pTitle);
         btnLike.appendChild(pLikes);
         mediaHeader.appendChild(btnLike);
@@ -413,6 +424,8 @@ function refreshMedia(mediaSort) {
 
     // rappelle la fonction countLike 2sec après le chargement des medias triés
     setTimeout(countLike, 2000);
+    setTimeout(btnEnter, 1000);
+
 }
 
 
@@ -420,13 +433,21 @@ function refreshMedia(mediaSort) {
 // ouverture du menu deroulant
 
 const selected = document.querySelector(".selected");
+const selectBox = document.querySelector(".select-box");
 selected.innerHTML = "Popularité";
 const optionsContainer = document.querySelector(".options-container");
 
 const optionsList = document.querySelectorAll(".option");
 
 selected.addEventListener("click", () => {
-  optionsContainer.classList.toggle("active");
+    optionsContainer.classList.toggle("active");
+});
+
+selectBox.addEventListener('keydown', (event) => {
+    if(event.key === "Enter"){
+        console.log('je reagis');
+        optionsContainer.classList.toggle("active");
+    }
 });
 
 optionsList.forEach(o => {
@@ -435,6 +456,4 @@ optionsList.forEach(o => {
     optionsContainer.classList.remove("active");
   });
 });
-
-
 

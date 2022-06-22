@@ -1,3 +1,5 @@
+export {btnEnter};
+
 /**
  * Création de la lightbox
  */ 
