@@ -50,6 +50,9 @@ document.addEventListener('keydown', function(e){
     if(e.key === "Tab" && boolMod == true){
         focusInModal(e);
     }
+    if(e.key === "Enter"){
+        submissionForm(e);
+    }
 });
 
 
@@ -136,6 +139,11 @@ function contactForm(){
     messageInput.setAttribute('name', 'message');
     // messageInput.setAttribute('aria-labelledby', 'Your Message');
 
+    const sendInput = document.createElement('input');
+    sendInput.setAttribute('id', 'send');
+    sendInput.setAttribute('type', 'button');
+    sendInput.setAttribute('value', 'Envoyer');
+    sendInput.setAttribute('aria-label', 'Send');
 
     divFirst.appendChild(first);
     divFirst.appendChild(firstInput);
@@ -152,17 +160,19 @@ function contactForm(){
     form.appendChild(divFirst);
     form.appendChild(divName);
     form.appendChild(divMail);
-    form.appendChild(divMessage); 
+    form.appendChild(divMessage);
+    form.appendChild(sendInput); 
 
     focusables = Array.from(modal.querySelectorAll(focusableSelector));
     focusables[0].focus();
+
+    const btn_submit = document.getElementById('send');
+
+    // au clique sur le bouton "Envoyer" on appelle la fonction submissionForm
+    btn_submit.addEventListener('click', submissionForm);
 }
 
 
-const btn_submit = document.getElementById('send');
-
-// au clique sur le bouton "Envoyer" on appelle la fonction submissionForm
-btn_submit.addEventListener('click', submissionForm);
 
 function submissionForm(){
     // récupération des valeurs entrées par l'utilisateur et impression dans la console

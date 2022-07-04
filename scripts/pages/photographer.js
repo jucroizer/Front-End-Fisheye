@@ -445,7 +445,6 @@ selected.addEventListener("click", () => {
 
 selectBox.addEventListener('keydown', (event) => {
     if(event.key === "Enter"){
-        console.log('je reagis');
         optionsContainer.classList.toggle("active");
     }
 });
