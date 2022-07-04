@@ -125,7 +125,6 @@ function contactForm(){
     mailInput.setAttribute('type', 'text');
     // mailInput.setAttribute('aria-labelledby', 'Email');
 
-
     const divMessage = document.createElement('div');
     divMessage.setAttribute('class', 'input-field');
 
@@ -137,13 +136,6 @@ function contactForm(){
     messageInput.setAttribute('type', 'text');
     messageInput.setAttribute('id', 'message');
     messageInput.setAttribute('name', 'message');
-    // messageInput.setAttribute('aria-labelledby', 'Your Message');
-
-    const sendInput = document.createElement('input');
-    sendInput.setAttribute('id', 'send');
-    sendInput.setAttribute('type', 'button');
-    sendInput.setAttribute('value', 'Envoyer');
-    sendInput.setAttribute('aria-label', 'Send');
 
     divFirst.appendChild(first);
     divFirst.appendChild(firstInput);
@@ -161,17 +153,10 @@ function contactForm(){
     form.appendChild(divName);
     form.appendChild(divMail);
     form.appendChild(divMessage);
-    form.appendChild(sendInput); 
 
     focusables = Array.from(modal.querySelectorAll(focusableSelector));
     focusables[0].focus();
-
-    const btn_submit = document.getElementById('send');
-
-    // au clique sur le bouton "Envoyer" on appelle la fonction submissionForm
-    btn_submit.addEventListener('click', submissionForm);
 }
-
 
 
 function submissionForm(){
