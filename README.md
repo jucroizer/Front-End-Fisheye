@@ -9,6 +9,8 @@ You can navigate to each page with the keyboard (tab key).
 ## Start Project
 Nothing to install here, just open the `index.html` file.
 
+You can access the website here: https://jucroizer.github.io/JustineCroizer_6_23022022/
+
 ## Technologies
 * HTML5
 * CSS3
